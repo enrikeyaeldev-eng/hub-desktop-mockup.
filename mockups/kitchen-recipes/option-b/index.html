@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Recipe book – read (option B)</title>
+<link rel="stylesheet" href="hub.css">
+<style>
+/* NEW (layout use): a tile list filling a sidebar pane, scrolling on its own.
+   .tile-list was only shown inside a panel, with a drawn (static) scrollbar. */
+.pane-body > .tile-list { height: 100%; padding: 4px 22px 8px 14px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+.pane-body > .empty-state { height: 100%; justify-content: center; padding: 0 30px; text-align: center; }
+.list-tile { cursor: pointer; }
+</style>
+</head>
+<body>
+<!-- ICON SPRITE: keep in every page. Use <svg class="i"><use href="#i-name"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 4h18l-7 9v7l-4-2v-5z"/></symbol>
+  <symbol id="i-rec" viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="14" fill="currentColor" stroke="none"/><path d="M18 7v10M21 9v6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14.5"/><circle cx="16" cy="12.5" r="5"/><path d="M6.5 26.5c2-4.5 5.5-6.5 9.5-6.5s7.5 2 9.5 6.5"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5"/><path d="M11 5.5h10"/><rect x="3" y="10" width="5" height="5"/><path d="M11 12.5h10"/><path d="M3 19.5h5M11 19.5h10"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0 5.8 5.2L9 23l-3-3L17.3 8.7"/><path d="M14.5 6.5 17 4a4.5 4.5 0 0 1 3.5 1.5L18 8"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4h12l-2 4 2 4H7v5"/><path d="M4 17h3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 1-1 1.7v1M12 17v.5"/></symbol>
+  <symbol id="i-inspect" viewBox="0 0 24 24"><path d="M13 19H3V5h18v6"/><circle cx="17" cy="16" r="3"/><path d="m19.2 18.2 2.3 2.3"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 52 44"><path d="M7 4H3v36h4M45 4h4v36h-4"/><path d="M11 22h4M15 16v12M19 19v6M23 12v20M27 18v8M31 20v4M35 8v28M39 22h2"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4l7 7-7 7v-4c-5 0-8 1.5-11 5 1-6 4-10 11-10.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M3 12h17M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M21 12H4M10 6l-6 6 6 6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z" fill="currentColor"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h8V4M8 20v-6h8v6"/></symbol>
+  <symbol id="i-preview" viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M3 20h5"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="9" rx="1" fill="currentColor"/><rect x="6" y="14" width="12" height="7" fill="var(--primary)"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><path d="M2 9h20M2 14.5h20M9 4v16"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M3 5h9M3 10h6M3 15h4"/><circle cx="14" cy="14" r="5"/><path d="m18 18 4 4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M14 2 7 14h5l-2 8 7-12h-5z" fill="currentColor"/></symbol>
+  <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+  <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M14 3l7 7-2 1-3 3 1 4-2 2-4-4-5 5M9 15l-4-4 2-2 4 1 3-3 1-2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-magnify" viewBox="0 0 24 24"><circle cx="14" cy="10" r="6"/><path d="M10 14l-7 7"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-tiles" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16M12 9h9M12 14h9"/><path d="m5 9 4 6M9 9l-4 6"/></symbol>
+  <symbol id="i-earth" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M4 21l2-5h12l2 5z"/></symbol>
+  <symbol id="i-drive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 4v5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M3 23c0-5 4-8.5 9-8.5s9 3.5 9 8.5z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="m3 6 9 7 9-7"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="3" width="12" height="14" rx="1"/><path d="M5 7v14h11"/></symbol>
+  <symbol id="i-face-sad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 16.5c2.5-2.5 5.5-2.5 8 0"/></symbol>
+  <symbol id="i-face-neutral" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8.5 15h7"/></symbol>
+  <symbol id="i-face-happy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 14c2.5 2.5 5.5 2.5 8 0"/></symbol>
+  <symbol id="i-dir-out" viewBox="0 0 24 24"><path d="M6 18 18 6M9 6h9v9"/></symbol>
+  <symbol id="i-dir-in" viewBox="0 0 24 24"><path d="M6 6l12 12M18 9v9H9"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+  <symbol id="i-record" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4h-4"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L5 20h14L14 9V3"/><path d="M7.5 15h9"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M10 3l1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8zM18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+  <symbol id="i-reply" viewBox="0 0 24 24"><path d="M3 9h11a7 7 0 0 1 7 7v3"/><path d="M8 4 3 9l5 5"/></symbol>
+  <symbol id="i-forward" viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="10"/><path d="m3 8 6.5 5L16 8"/><path d="M17 12h5M19.5 9.5 22 12l-2.5 2.5"/></symbol>
+  <symbol id="i-pane-left" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M8 4v16M15 9l-3 3 3 3"/></symbol>
+  <symbol id="i-pane-right" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M16 4v16M9 9l3 3-3 3"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M20 11 12 19a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/></symbol>
+  <symbol id="i-status-sent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8l5 4-5 4z" fill="currentColor"/></symbol>
+  <symbol id="i-status-done" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="i-file-warn" viewBox="0 0 24 24"><path d="M12 2v9M8.5 7.5 12 11l3.5-3.5"/><path d="M8 6H4v14h9"/><path d="M17 11l5 9h-10z"/><path d="M17 14.5v2.5M17 18.6v.3"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><path d="M3 12h2M8 12h2M13 12h7M16 8l4 4-4 4"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6L20 9"/><path d="M20 4v5h-5"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="14" rx="1"/><path d="M8 18l-2 3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  <symbol id="i-block" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="m6.5 6.5 11 11"/></symbol>
+  <symbol id="i-float" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v6H4V6h6"/></symbol>
+  <symbol id="i-row-details" viewBox="0 0 24 24"><path d="M4 14v6h16v-6"/><path d="M12 3v11M8 10l4 4 4-4"/></symbol>
+  <symbol id="i-add-person" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+</svg>
+
+<div class="window has-sidebar" style="--sidebar-w:517px">
+  <!-- SHELL: tab strip -->
+  <div class="tabstrip">
+    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div><div class="tab is-active"><span class="t">Recipe Book</span><span class="close">✕</span></div>
+    <div class="titlebar"><svg class="i rec"><use href="#i-rec"/></svg><svg class="i user"><use href="#i-user"/></svg><span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span></div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar"><section class="pane" style="height:100%">
+  <div class="pane-header"><svg class="i"><use href="#i-pane-left"/></svg>Recipes (14)<span class="tools"><svg class="i"><use href="#i-gear"/></svg></span></div>
+  <div class="pane-toolbar"><div class="input is-placeholder">Search recipes or ingredients</div><div class="select" style="width:140px">All categories<i class="caret"></i></div></div>
+  <div class="pane-body"><div class="tile-list" id="tiles"><div class="list-tile" data-r="R-0003"><div class="list-tile-title">Apple crumble</div><div class="list-tile-text">Desserts · 48 servings · 8 ingredients</div></div><div class="list-tile" data-r="R-0011"><div class="list-tile-title">Bean chili</div><div class="list-tile-text">Main dishes · 60 servings · 13 ingredients</div></div><div class="list-tile" data-r="R-0007"><div class="list-tile-title">Breakfast oatmeal</div><div class="list-tile-text">Breakfast · 50 servings · 6 ingredients</div></div><div class="list-tile" data-r="R-0014"><div class="list-tile-title">Chicken and rice casserole</div><div class="list-tile-text">Main dishes · 40 servings · 11 ingredients</div></div><div class="list-tile" data-r="R-0005"><div class="list-tile-title">Cornbread</div><div class="list-tile-text">Breads · 36 servings · 8 ingredients</div></div><div class="list-tile" data-r="R-0009"><div class="list-tile-title">Garden salad</div><div class="list-tile-text">Salads · 40 servings · 9 ingredients</div></div><div class="list-tile" data-r="R-0002"><div class="list-tile-title">Lentil stew</div><div class="list-tile-text">Soups · 50 servings · 10 ingredients</div></div><div class="list-tile" data-r="R-0010"><div class="list-tile-title">Pancakes</div><div class="list-tile-text">Breakfast · 40 servings · 7 ingredients</div></div><div class="list-tile" data-r="R-0013"><div class="list-tile-title">Potato salad</div><div class="list-tile-text">Salads · 45 servings · 9 ingredients</div></div><div class="list-tile" data-r="R-0006"><div class="list-tile-title">Rice pilaf</div><div class="list-tile-text">Side dishes · 50 servings · 7 ingredients</div></div><div class="list-tile" data-r="R-0008"><div class="list-tile-title">Roasted vegetables</div><div class="list-tile-text">Side dishes · 40 servings · 8 ingredients</div></div><div class="list-tile" data-r="R-0004"><div class="list-tile-title">Tomato pasta sauce</div><div class="list-tile-text">Sauces · 60 servings · 10 ingredients</div></div><div class="list-tile is-active" data-r="R-0012"><div class="list-tile-title">Vegetable soup</div><div class="list-tile-text">Soups · 40 servings · 12 ingredients</div></div><div class="list-tile" data-r="R-0001"><div class="list-tile-title">Whole wheat bread</div><div class="list-tile-text">Breads · 32 servings · 7 ingredients</div></div></div></div>
+</section></aside>
+  <!-- PAGE -->
+  <main class="page">
+    <div class="page-header"><span class="page-title" data-f="title">Recipe: Vegetable soup</span><span class="page-actions"><svg class="i"><use href="#i-gear"/></svg><svg class="i fill"><use href="#i-share"/></svg></span></div>
+    <div class="page-body">
+<div class="panel-grid" style="padding-top:24px;gap:24px 30px;align-items:stretch"><section class="panel headless"><div class="panel-body" style="padding:18px 24px">
+  <div class="identity"><div class="identity-name" style="margin-bottom:4px"><span data-f="name">Vegetable soup</span><span class="tag" data-f="cat">Soups</span></div>
+  <div class="identity-sub" data-f="sub">R-0012 · Updated 11/2/2026 by Okafor, Daniel</div>
+  <div class="identity-stats" style="margin-top:14px"><div class="stat-text" style="margin-left:0"><div class="stat-text-label">Servings</div><div class="stat-text-value" data-f="serv">40</div></div><div class="stat-text"><div class="stat-text-label">Prep time</div><div class="stat-text-value" data-f="prep">30 min</div></div><div class="stat-text"><div class="stat-text-label">Cook time</div><div class="stat-text-value" data-f="cook">45 min</div></div><div class="stat-text"><div class="stat-text-label">Ingredients</div><div class="stat-text-value" data-f="n">12</div></div></div></div>
+</div></section><section class="panel">
+  <div class="panel-header">Method</div>
+  <div class="panel-body tight" style="display:flex;flex-direction:column"><div class="field" style="flex:1"><label>Steps</label><div class="input multiline is-readonly" style="flex:1;height:auto;min-height:64px" data-f="method">Soften the onions and garlic in the oil for 5 minutes. Add the carrots, celery and potatoes and cook for 5 more minutes. Add the tomatoes, stock and thyme and simmer for 30 minutes. Add the green beans for the last 10 minutes, then season with salt and pepper.</div></div></div>
+</section><section class="panel span-2">
+  <div class="panel-header">Ingredients<span class="panel-actions"><span class="btn-icon"><svg class="i"><use href="#i-export"/></svg></span></span></div>
+  <div class="panel-body tight"><div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div><table class="data-grid embedded striped"><thead><tr><th>Seq.</th><th>Ingredient</th><th>Amount</th><th>Unit</th><th>Preparation</th><th class="fill"></th></tr></thead><tbody id="ing"><tr><td class="num">1</td><td>Olive oil</td><td class="num">200</td><td>mL</td><td></td><td class="fill"></td></tr><tr><td class="num">2</td><td>Onions</td><td class="num">2</td><td>kg</td><td>Diced</td><td class="fill"></td></tr><tr><td class="num">3</td><td>Garlic</td><td class="num">100</td><td>g</td><td>Minced</td><td class="fill"></td></tr><tr><td class="num">4</td><td>Carrots</td><td class="num">2.5</td><td>kg</td><td>Sliced</td><td class="fill"></td></tr><tr><td class="num">5</td><td>Celery</td><td class="num">1.5</td><td>kg</td><td>Sliced</td><td class="fill"></td></tr><tr><td class="num">6</td><td>Potatoes</td><td class="num">3</td><td>kg</td><td>Peeled and cubed</td><td class="fill"></td></tr><tr><td class="num">7</td><td>Canned diced tomatoes</td><td class="num">3</td><td>kg</td><td></td><td class="fill"></td></tr><tr><td class="num">8</td><td>Vegetable stock</td><td class="num">8</td><td>L</td><td></td><td class="fill"></td></tr><tr><td class="num">9</td><td>Green beans</td><td class="num">1</td><td>kg</td><td>Frozen, cut</td><td class="fill"></td></tr><tr><td class="num">10</td><td>Dried thyme</td><td class="num">15</td><td>g</td><td></td><td class="fill"></td></tr><tr><td class="num">11</td><td>Salt</td><td class="num">40</td><td>g</td><td>Adjust to taste</td><td class="fill"></td></tr><tr><td class="num">12</td><td>Black pepper</td><td class="num">10</td><td>g</td><td>Ground</td><td class="fill"></td></tr></tbody></table><div class="grid-footer" data-f="count">Records (12)</div></div>
+</section></div>
+    </div>
+  </main>
+
+  <!-- SHELL: action bar -->
+  <footer class="action-bar">
+    <span class="spacer"></span><button class="btn primary"><svg class="i"><use href="#i-trash"/></svg><span>Delete</span></button><button class="btn primary"><svg class="i"><use href="#i-copy"/></svg><span>Duplicate</span></button><button class="btn primary" data-href="recipe-book--edit.html?r={r}"><svg class="i"><use href="#i-pencil"/></svg><span>Edit</span></button><button class="btn primary" data-href="recipe-book--edit.html?new=1"><svg class="i"><use href="#i-plus"/></svg><span>New recipe</span></button>
+  </footer>
+
+  <!-- SHELL: right rail (do not change) -->
+  <nav class="rail">
+    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="rail-count">1646</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-wrench"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-alert"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="rail-badge">9+</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-help"/></svg></div>
+    <div class="rail-item"><span class="rail-ai">AI<small>BETA ✦</small></span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-inspect"/></svg></div>
+    <div class="rail-logo"><svg class="i"><use href="#i-logo"/></svg></div>
+  </nav>
+</div>
+
+<!-- PROTOTYPE BEHAVIOUR (inline, no external JS) -->
+<script>
+const DATA = {"R-0003": {"id": "R-0003", "name": "Apple crumble", "cat": "Desserts", "serv": 48, "prep": 25, "cook": 40, "upd": "10/14/2026", "by": "Lindqvist, Sara", "method": "Toss the apples with the lemon juice, sugar and cinnamon and spread them in pans. Rub the butter into the flour, oats and brown sugar, scatter over the apples and bake at 180 °C for 40 minutes.", "ings": [["Apples", "6", "kg", "Peeled and sliced"], ["Lemon juice", "100", "mL", ""], ["Sugar", "600", "g", ""], ["Ground cinnamon", "20", "g", ""], ["Flour", "1.5", "kg", ""], ["Rolled oats", "750", "g", ""], ["Brown sugar", "750", "g", ""], ["Butter", "1", "kg", "Cold, cubed"]]}, "R-0011": {"id": "R-0011", "name": "Bean chili", "cat": "Main dishes", "serv": 60, "prep": 30, "cook": 90, "upd": "9/30/2026", "by": "Mensah, Kofi", "method": "Brown the beef in the oil, then add the onions, garlic and peppers. Stir in the spices and tomato paste, add the tomatoes, beans and water and simmer for 90 minutes, stirring often.", "ings": [["Vegetable oil", "150", "mL", ""], ["Onions", "3", "kg", "Diced"], ["Garlic", "150", "g", "Minced"], ["Bell peppers", "2", "kg", "Diced"], ["Ground beef", "6", "kg", ""], ["Kidney beans, canned", "5", "kg", "Drained"], ["Black beans, canned", "3", "kg", "Drained"], ["Crushed tomatoes", "6", "kg", ""], ["Tomato paste", "800", "g", ""], ["Chili powder", "120", "g", ""], ["Ground cumin", "60", "g", ""], ["Salt", "60", "g", "Adjust to taste"], ["Water", "3", "L", ""]]}, "R-0007": {"id": "R-0007", "name": "Breakfast oatmeal", "cat": "Breakfast", "serv": 50, "prep": 5, "cook": 20, "upd": "8/22/2026", "by": "Lindqvist, Sara", "method": "Bring the milk, water and salt to a simmer. Stir in the oats and cook for 15 minutes, stirring often. Serve with the brown sugar and raisins on the side.", "ings": [["Rolled oats", "4", "kg", ""], ["Milk", "10", "L", ""], ["Water", "10", "L", ""], ["Salt", "25", "g", ""], ["Brown sugar", "1", "kg", "Serve on the side"], ["Raisins", "1.5", "kg", "Serve on the side"]]}, "R-0014": {"id": "R-0014", "name": "Chicken and rice casserole", "cat": "Main dishes", "serv": 40, "prep": 35, "cook": 60, "upd": "11/9/2026", "by": "Okafor, Daniel", "method": "Make a white sauce with the butter, flour and milk. Mix the chicken, rice, vegetables and stock in pans, pour over the sauce, cover and bake at 180 °C for 60 minutes.", "ings": [["Chicken thighs", "7", "kg", "Boneless, cubed"], ["Long-grain rice", "3", "kg", "Rinsed"], ["Chicken stock", "7", "L", ""], ["Onions", "1.5", "kg", "Diced"], ["Celery", "1", "kg", "Diced"], ["Carrots", "1.5", "kg", "Diced"], ["Frozen peas", "1.5", "kg", ""], ["Butter", "300", "g", ""], ["Flour", "300", "g", ""], ["Milk", "3", "L", ""], ["Salt", "40", "g", ""]]}, "R-0005": {"id": "R-0005", "name": "Cornbread", "cat": "Breads", "serv": 36, "prep": 15, "cook": 30, "upd": "7/18/2026", "by": "Mensah, Kofi", "method": "Mix the dry ingredients. Whisk the milk, eggs and oil, stir into the dry mix until just combined and bake in greased pans at 200 °C for 25 to 30 minutes.", "ings": [["Cornmeal", "1.5", "kg", ""], ["Flour", "1.5", "kg", ""], ["Sugar", "400", "g", ""], ["Baking powder", "90", "g", ""], ["Salt", "30", "g", ""], ["Milk", "2.5", "L", ""], ["Eggs", "12", "pcs", "Beaten"], ["Vegetable oil", "600", "mL", ""]]}, "R-0009": {"id": "R-0009", "name": "Garden salad", "cat": "Salads", "serv": 40, "prep": 25, "cook": 0, "upd": "10/2/2026", "by": "Novak, Petra", "method": "Combine the lettuce and vegetables just before serving. Whisk the oil, vinegar and salt and serve the dressing on the side.", "ings": [["Lettuce", "4", "kg", "Washed, torn"], ["Tomatoes", "2", "kg", "Cut in wedges"], ["Cucumbers", "2", "kg", "Sliced"], ["Carrots", "1", "kg", "Grated"], ["Red onions", "500", "g", "Thinly sliced"], ["Radishes", "500", "g", "Sliced"], ["Olive oil", "500", "mL", ""], ["Red wine vinegar", "200", "mL", ""], ["Salt", "20", "g", ""]]}, "R-0002": {"id": "R-0002", "name": "Lentil stew", "cat": "Soups", "serv": 50, "prep": 20, "cook": 50, "upd": "9/12/2026", "by": "Novak, Petra", "method": "Soften the onions, garlic, carrots and celery in the oil. Add the lentils, tomatoes, stock and cumin and simmer for 45 minutes until the lentils are tender. Season with salt.", "ings": [["Olive oil", "200", "mL", ""], ["Onions", "2.5", "kg", "Diced"], ["Garlic", "120", "g", "Minced"], ["Carrots", "2", "kg", "Diced"], ["Celery", "1.5", "kg", "Diced"], ["Brown lentils", "4", "kg", "Rinsed"], ["Canned diced tomatoes", "4", "kg", ""], ["Vegetable stock", "12", "L", ""], ["Ground cumin", "40", "g", ""], ["Salt", "50", "g", "Adjust to taste"]]}, "R-0010": {"id": "R-0010", "name": "Pancakes", "cat": "Breakfast", "serv": 40, "prep": 15, "cook": 25, "upd": "6/5/2026", "by": "Okafor, Daniel", "method": "Mix the dry ingredients. Whisk in the milk, eggs and melted butter until smooth. Cook on a greased griddle, about 2 minutes per side.", "ings": [["Flour", "3", "kg", ""], ["Sugar", "300", "g", ""], ["Baking powder", "120", "g", ""], ["Salt", "30", "g", ""], ["Milk", "4.5", "L", ""], ["Eggs", "24", "pcs", "Beaten"], ["Butter", "500", "g", "Melted"]]}, "R-0013": {"id": "R-0013", "name": "Potato salad", "cat": "Salads", "serv": 45, "prep": 30, "cook": 25, "upd": "10/27/2026", "by": "Lindqvist, Sara", "method": "Boil the potatoes until just tender and let them cool. Mix the mayonnaise and mustard, fold in the potatoes, celery, onions, eggs and pickles and season. Chill before serving.", "ings": [["Potatoes", "7", "kg", "Boiled, cubed"], ["Mayonnaise", "2", "kg", ""], ["Mustard", "200", "g", ""], ["Celery", "1", "kg", "Finely diced"], ["Red onions", "600", "g", "Finely diced"], ["Eggs", "18", "pcs", "Hard-boiled, chopped"], ["Pickles", "800", "g", "Chopped"], ["Salt", "35", "g", ""], ["Black pepper", "10", "g", "Ground"]]}, "R-0006": {"id": "R-0006", "name": "Rice pilaf", "cat": "Side dishes", "serv": 50, "prep": 10, "cook": 30, "upd": "8/1/2026", "by": "Mensah, Kofi", "method": "Soften the onions in the butter, stir in the rice until coated, add the hot stock, bay leaves and salt. Cover and cook for 20 minutes, then fluff and add the parsley.", "ings": [["Butter", "400", "g", ""], ["Onions", "1.5", "kg", "Finely diced"], ["Long-grain rice", "4.5", "kg", ""], ["Chicken stock", "9", "L", "Hot"], ["Bay leaves", "10", "pcs", ""], ["Salt", "40", "g", ""], ["Parsley, fresh", "150", "g", "Chopped"]]}, "R-0008": {"id": "R-0008", "name": "Roasted vegetables", "cat": "Side dishes", "serv": 40, "prep": 25, "cook": 35, "upd": "9/4/2026", "by": "Novak, Petra", "method": "Toss the vegetables with the oil, rosemary and salt, spread them on trays and roast at 220 °C for 30 to 35 minutes, turning once.", "ings": [["Potatoes", "4", "kg", "Cubed"], ["Carrots", "2.5", "kg", "Cut in sticks"], ["Zucchini", "2.5", "kg", "Sliced"], ["Bell peppers", "2", "kg", "Cut in strips"], ["Red onions", "1.5", "kg", "Cut in wedges"], ["Olive oil", "600", "mL", ""], ["Dried rosemary", "25", "g", ""], ["Salt", "50", "g", ""]]}, "R-0004": {"id": "R-0004", "name": "Tomato pasta sauce", "cat": "Sauces", "serv": 60, "prep": 20, "cook": 45, "upd": "10/19/2026", "by": "Okafor, Daniel", "method": "Soften the onions and garlic in the oil, stir in the tomato paste, then add the tomatoes, sugar and herbs. Simmer for 40 minutes and season.", "ings": [["Olive oil", "400", "mL", ""], ["Onions", "3", "kg", "Finely diced"], ["Garlic", "200", "g", "Minced"], ["Crushed tomatoes", "15", "kg", ""], ["Tomato paste", "1", "kg", ""], ["Sugar", "150", "g", ""], ["Dried oregano", "40", "g", ""], ["Dried basil", "40", "g", ""], ["Salt", "80", "g", "Adjust to taste"], ["Black pepper", "15", "g", "Ground"]]}, "R-0012": {"id": "R-0012", "name": "Vegetable soup", "cat": "Soups", "serv": 40, "prep": 30, "cook": 45, "upd": "11/2/2026", "by": "Okafor, Daniel", "method": "Soften the onions and garlic in the oil for 5 minutes. Add the carrots, celery and potatoes and cook for 5 more minutes. Add the tomatoes, stock and thyme and simmer for 30 minutes. Add the green beans for the last 10 minutes, then season with salt and pepper.", "ings": [["Olive oil", "200", "mL", ""], ["Onions", "2", "kg", "Diced"], ["Garlic", "100", "g", "Minced"], ["Carrots", "2.5", "kg", "Sliced"], ["Celery", "1.5", "kg", "Sliced"], ["Potatoes", "3", "kg", "Peeled and cubed"], ["Canned diced tomatoes", "3", "kg", ""], ["Vegetable stock", "8", "L", ""], ["Green beans", "1", "kg", "Frozen, cut"], ["Dried thyme", "15", "g", ""], ["Salt", "40", "g", "Adjust to taste"], ["Black pepper", "10", "g", "Ground"]]}, "R-0001": {"id": "R-0001", "name": "Whole wheat bread", "cat": "Breads", "serv": 32, "prep": 30, "cook": 35, "upd": "5/29/2026", "by": "Lindqvist, Sara", "method": "Dissolve the yeast and honey in the water. Mix in the flours, oil and salt and knead for 10 minutes. Let rise for 1 hour, shape into loaves, rise again and bake at 200 °C for 35 minutes.", "ings": [["Whole wheat flour", "3", "kg", ""], ["Bread flour", "1", "kg", ""], ["Water", "2.8", "L", "Lukewarm"], ["Dry yeast", "60", "g", ""], ["Honey", "200", "g", ""], ["Vegetable oil", "150", "mL", ""], ["Salt", "70", "g", ""]]}};
+
+const P = new URLSearchParams(location.search);
+const NEW = P.get('new') === '1';
+const ADDED = P.get('added') === '1';
+let cur = (P.get('r') && DATA[P.get('r')]) ? P.get('r') : 'R-0012';
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function fill(map) { document.querySelectorAll('[data-f]').forEach(e => { if (e.dataset.f in map) e.textContent = map[e.dataset.f]; }); }
+function href(t) { return ((NEW && t.dataset.hrefNew) || t.dataset.href).replace('{r}', encodeURIComponent(cur)).replace('{a}', ADDED ? '&added=1' : ''); }
+// Navigation: any element with data-href (buttons, tabs, crumbs, tiles) goes to that screen.
+document.querySelectorAll('[data-href]').forEach(e => e.style.cursor = 'pointer');
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-href]');
+  if (t && !t.disabled) { e.preventDefault(); location.href = href(t); }
+});
+// Collapsibles open/close; jump nav opens and scrolls to its section.
+document.querySelectorAll('.collapsible-bar').forEach(bar => {
+  bar.style.cursor = 'pointer';
+  bar.addEventListener('click', e => { if (!e.target.closest('.collapsible-tools')) bar.closest('.collapsible').classList.toggle('is-open'); });
+});
+document.querySelectorAll('.jump-nav a').forEach((a, i) => a.addEventListener('click', e => {
+  e.preventDefault();
+  const c = document.querySelectorAll('.page-body .stack > .collapsible')[i];
+  if (!c) return;
+  c.classList.add('is-open');
+  document.querySelectorAll('.jump-nav a').forEach(x => x.classList.toggle('is-current', x === a));
+  const body = c.closest('.page-body'); body.scrollTop = c.offsetTop - 0;
+}));
+// Keep the selected tile in view (the list scrolls on its own).
+function showTile(id) {
+  const list = document.getElementById('tiles'); if (!list) return;
+  list.querySelectorAll('.list-tile').forEach(t => t.classList.toggle('is-active', t.dataset.r === id));
+  const t = list.querySelector('.list-tile.is-active'); if (!t) return;
+  if (t.offsetTop < list.scrollTop || t.offsetTop + t.offsetHeight > list.scrollTop + list.clientHeight)
+    list.scrollTop = t.offsetTop - (list.clientHeight - t.offsetHeight) / 2;
+}
+
+// Selecting a tile shows that recipe on the right (no reload).
+function show(id) {
+  const R = DATA[id]; cur = id;
+  fill({ title: 'Recipe: ' + R.name, name: R.name, cat: R.cat, sub: R.id + ' · Updated ' + R.upd + ' by ' + R.by,
+         serv: R.serv, prep: R.prep + ' min', cook: R.cook + ' min', n: R.ings.length, method: R.method,
+         count: 'Records (' + R.ings.length + ')' });
+  document.getElementById('ing').innerHTML = R.ings.map((g, i) =>
+    '<tr><td class="num">' + (i + 1) + '</td><td>' + esc(g[0]) + '</td><td class="num">' + esc(g[1]) + '</td><td>' + esc(g[2]) + '</td><td>' + esc(g[3]) + '</td><td class="fill"></td></tr>').join('');
+  showTile(id);
+}
+document.getElementById('tiles').addEventListener('click', e => {
+  const t = e.target.closest('.list-tile'); if (!t) return;
+  show(t.dataset.r);
+  history.replaceState(null, '', '?r=' + encodeURIComponent(cur));
+});
+show(cur);
+
+// Fit to window: scale the fixed 1920x1030 window down to the browser viewport (never up).
+(function () {
+  const w = document.querySelector('.window');
+  document.documentElement.style.overflow = 'hidden';
+  function fit() {
+    const s = Math.min(1, window.innerWidth / 1920, window.innerHeight / 1030);
+    w.style.transformOrigin = '0 0';
+    w.style.transform = s < 1 ? 'scale(' + s + ')' : '';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>
