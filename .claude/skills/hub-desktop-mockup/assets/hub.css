@@ -421,3 +421,71 @@ table.mini.ref tbody tr:nth-child(odd) td { background: #FFFFFF; }
 table.mini.ref td:first-child, table.mini.ref th:first-child { width: 40px; text-align: center; padding: 0; }
 table.mini.ref td:nth-child(2) { padding-left: 10px; }
 .ref-sheet .records { margin-top: auto; background: var(--input-bg); padding-left: 20px; }
+
+/* =====================================================================
+   CUSTOM OVERVIEW SECTIONS (dashboard-like first section of a record form)
+   Use only for the Overview section; everything else stays standard.
+   ===================================================================== */
+:root { --link: #4D8CAD; --ok: #019E13; --bad: #FF0000; --text-soft: #525252; --text-faint: #7F7F7F; }
+
+/* Header with many sections: jump links wrap onto two left-aligned lines */
+.header-panel.record.many { height: auto; justify-content: flex-start; padding-top: 16px; padding-bottom: 14px; }
+.header-panel.record.many .form-title { margin-top: 0; }
+.jump-links.wrap { position: static; flex-wrap: wrap; row-gap: 8px; column-gap: 19px; margin: 8px 80px 0 104px; }
+
+/* Overview card: plain white card, no header bar */
+.overview-card { background: var(--surface); box-shadow: var(--shadow); padding: 16px 24px 16px 10px; display: flex; gap: 22px; position: relative; }
+.overview-card .corner { position: absolute; right: 8px; top: 6px; display: flex; gap: 2px; color: #333; }
+.overview-card .corner .i { width: 17px; height: 17px; }
+
+/* Avatar placeholder (circle with silhouette) */
+.avatar-ph { width: 140px; height: 140px; border-radius: 50%; border: 1px solid #ccc; background: #F5F5F5; color: #B9B9B9; display: flex; align-items: center; justify-content: center; flex: none; overflow: hidden; }
+.avatar-ph .i { width: 62%; height: 62%; fill: currentColor; stroke: none; margin-top: 12%; }
+.avatar-ph.sm { width: 64px; height: 64px; }
+
+/* Profile header */
+.profile { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.profile-name { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 12px; }
+.tag { font-size: 12px; font-weight: 600; color: var(--text-muted-strong); background: #fff; border: 1px solid #ececec; padding: 1px 8px; }
+.profile-sub { font-size: 18px; font-weight: 300; color: var(--text-soft); line-height: 24px; }
+.profile-row { display: flex; gap: 14px; align-items: center; margin-top: 18px; }
+
+/* KPI tile: big number + small decimals + label */
+.kpi { width: 130px; height: 110px; background: #fff; padding: 20px 12px; display: flex; flex-direction: column; }
+.kpi .v { font-size: 40px; font-weight: 300; color: var(--primary); line-height: 44px; }
+.kpi .v small { font-size: 20px; color: #A3A3A3; }
+.kpi .l { font-size: 12px; color: var(--text-soft); margin-top: 6px; }
+.big-fact { margin-left: 12px; }
+.big-fact .l { font-size: 13px; font-weight: 600; color: var(--text); }
+.big-fact .v { font-size: 20px; font-weight: 300; color: var(--text-soft); }
+
+/* Formula row: tiles with breakdown joined by operators */
+.formula { display: flex; align-items: flex-start; margin-left: auto; padding-top: 10px; }
+.formula .op { font-size: 30px; color: var(--text-soft); width: 26px; text-align: center; padding-top: 38px; }
+.ftile { width: 174px; background: #fff; padding: 10px 8px 10px 8px; }
+.ftile.plain { background: transparent; }
+.ftile .l { font-size: 13px; color: var(--text-soft); }
+.ftile .v { font-size: 40px; font-weight: 300; color: var(--primary); text-align: center; line-height: 56px; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 4px; }
+.ftile .rows { display: grid; grid-template-columns: 1fr auto; row-gap: 8px; font-size: 12px; color: var(--text-soft); }
+.ftile .rows span:nth-child(even) { text-align: right; display: inline-flex; justify-content: flex-end; align-items: center; gap: 5px; }
+.status-ic { width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 800; flex: none; }
+.status-ic.bad { background: var(--bad); }
+.status-ic.ok { background: var(--ok); }
+.ftile .v .status-ic { width: 24px; height: 24px; font-size: 16px; }
+
+/* Summary list with a rule before the total */
+.sum-list { display: grid; grid-template-columns: 190px 36px; row-gap: 6px; font-size: 13px; color: var(--text-soft); margin-top: 16px; }
+.sum-list .n { text-align: right; }
+.sum-list .rule { grid-column: span 2; border-top: 1px solid #555; margin: -2px 0 2px; }
+
+/* Contact card (person details) */
+.contact-head { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; }
+.contact-head .n { font-size: 16px; font-weight: 600; color: var(--text-faint); }
+.contact-head .s { font-size: 13px; color: var(--text-faint); line-height: 18px; }
+.contact-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.contact-item { display: grid; grid-template-columns: 28px 1fr; row-gap: 2px; }
+.contact-item .i { width: 18px; height: 18px; color: #555; grid-row: span 20; }
+.contact-item .l { font-size: 11px; color: var(--text-faint); margin-top: 6px; }
+.contact-item .l:first-of-type { margin-top: 0; }
+.contact-item .v { font-size: 13px; padding-left: 2px; line-height: 16px; }
+.link { color: var(--link); font-size: 12px; text-decoration: none; margin-top: 10px; }

@@ -7,7 +7,7 @@ The app has six kinds of screens. Pick one before you start; each has a template
 | Home launcher | — | `template-home.html` | `→ Open` · `✎ Edit` |
 | Report | magnifier | `template-report.html` | `Preview` `Print` |
 | Search (entry point of a record form) | grid | `template-search-cards.html`, `template-search-grid.html` | `Open` `Export` `Google Earth` `Show on map` `Clear` · `+ New` |
-| Record form | (opened from a search) | `template-record.html` | `Drive`(disabled) `Google Earth` `Show on map` `✎ Edit` |
+| Record form | (opened from a search) | `template-record.html` (+ custom Overview: `template-overview-profile.html`, `template-overview-kpi.html`) | `Drive`(disabled) `Google Earth` `Show on map` `✎ Edit` |
 | Process form | lightning ⚡ | `template-process.html` | `Open` `Select` `Unselect` `Remove…` · `⚡ Update` |
 | Reference form (simple lookup table) | grid | `template-reference.html` | `✎ Edit` only |
 
@@ -59,6 +59,19 @@ The main maintenance screen. Tab title = record code + name (truncated).
 ### Settings-style record forms (e.g. User Preferences)
 Same record-form shell (header `Entity: NAME`, tab `NAME [User Preferences]`, jump links, collapsible sections, two columns + splitter, `✎ Edit` only in the footer). The panels use settings controls: option previews, vertical radio lists, checkbox trees. In read mode everything is shown with the `.ro` look.
 
+### Custom Overview sections (`template-overview-profile.html`, `template-overview-kpi.html`)
+Everything is standard **except the first section**: a record form may open with a custom **Overview** that summarizes the record at a glance. It still sits inside a normal collapsible section bar; inside, it uses a plain white `.overview-card` (no grey header). Below it, the other sections (General, …) return to the standard panels. Build an Overview from these blocks:
+
+- **Profile header** (people/entities with an identity): round `.avatar-ph` placeholder (140px), bold green name with the ID in parentheses, small boxed `.tag`s (e.g. gender, status), one or two light 18px subtitle lines, then a row of **KPI tiles** (`.kpi`: big light number in green, decimals small and grey, label under it) and a **big fact** (`.big-fact`: bold label + large light value).
+- **Formula KPIs** (capacity/budget style): `.formula` row of `.ftile`s joined by operators (`-`, `=`), each with label, big centered number and a breakdown list (label → right-aligned value). A **status icon** (`.status-ic.bad` red `!` / `.status-ic.ok` green `✓`) flags values over or under the limit, on the total and on each breakdown row. A trailing tile without the white box (`.ftile.plain`) is shown for related figures outside the formula.
+- **Left filter + summary list**: a dropdown that filters the whole overview (e.g. Site = All) and a `.sum-list` with a rule above the total line.
+- **Feedback faces** (☹ 😐 ☺) in the top-right corner (`.corner`) where the form collects feedback.
+- **Contact card** (can also appear in other sections as a group panel, e.g. *Person details*): small avatar + grey name/subtitles, then three columns with an icon (phone, mail, home), small grey labels, values, and a `See more` link (`.link`). Header action: copy button.
+
+Use a custom Overview only when the request asks for a summary/dashboard of a record. Don't invent new visual styles: combine these blocks with the standard tokens.
+
+Forms with many sections: the jump links **wrap onto two left-aligned lines** under the title (`.header-panel.record.many` + `.jump-links.wrap`).
+
 ## 5. Process form (e.g. a selection/assignment process)
 
 Action-oriented forms with no record search. They are the most interactive screens; take care with states (empty → criteria set → results → selection in progress → ready to update).
@@ -104,5 +117,6 @@ Many sections/modules are just a maintained list of codes (statuses, types, cate
 | Option preview | `.preview-thumb` (+ `.accent`, `.panel`, `.note`) | Small illustration above an option group showing what the setting does. |
 | Read mode | wrap a group body in `.ro` | Unselected options fade (light boxes, grey text); selected ones keep the green dot/tick and dark text; a checked checkbox shows only the tick. |
 | Tile, progress | `.tile`, `.progress` | |
+| Overview blocks | `.overview-card`, `.avatar-ph`, `.tag`, `.kpi`, `.big-fact`, `.formula` + `.ftile` + `.op`, `.status-ic`, `.sum-list`, contact card | Custom Overview sections only. |
 | Tooltip | `.tooltip`, `.tab-tooltip` | Dark green; shows the full text of truncated labels and tab titles. |
 | Buttons | `.btn.primary`, `.btn.outline`, `[disabled]`, `<u>` access key, `.icon-btn` | |

@@ -29,6 +29,11 @@ Sampled from screenshots of the real app. All are defined as CSS variables in `a
 | (disabled primary) | #B9C2BF | Disabled primary buttons (`Update`, `Drive`) |
 | (validation red) | #D0021B | Invalid border, ▲ marker, error tip background |
 | (illustration blue) | #1F5A96 | Only inside option preview illustrations |
+| `--link` | #4D8CAD | Text links (`See more`) |
+| `--ok` | #019E13 | Green ✓ status icon |
+| `--bad` | #FF0000 | Red ! status icon |
+| `--text-soft` | #525252 | Overview labels, subtitles, KPI labels |
+| `--text-faint` | #7F7F7F | Contact card name/subtitle/labels |
 
 ## Typography
 
@@ -40,6 +45,7 @@ Sampled from screenshots of the real app. All are defined as CSS variables in `a
 - Body, list items, input text: 13px / 400.
 - Tabs: 12px; Home tab 12px / 600 uppercase.
 - Buttons: 13px / 600.
+- Overview: profile name 20px / 600 green; subtitles 18px / 300; KPI numbers 40px / 300 green with 20px grey decimals.
 
 ## Spacing & sizing
 

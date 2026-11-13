@@ -32,6 +32,7 @@ Build once on the Components page, then use instances. Import `assets/template-c
 - `Lookup popup`, `Error tip`, `Tooltip`, `Criteria bar` (empty / with chips), `Chip`, `Pill tabs`.
 - `Section bar` — `collapsed` / `open`; `Splitter`.
 - `Result card`, `Data grid` (header, row: default / selected / focused), `Mini grid`, `Tile`, `Progress`.
+- Overview blocks: `Avatar`, `Tag`, `KPI tile`, `Formula tile` (`boxed` / `plain`, `status`: none / ok / bad), `Operator`, `Contact card`.
 - `Button` — `primary` / `outline`, with icon swap.
 
 Use auto layout everywhere so content changes don't break spacing.

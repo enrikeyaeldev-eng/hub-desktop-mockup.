@@ -30,6 +30,7 @@ Read these (short) files:
    | Record form (sections, columns, sub-groups, embedded grids) | `template-record.html` |
    | Process / action form | `template-process.html` |
    | Simple code list (statuses, types…) | `template-reference.html` |
+   | Custom Overview: profile with KPI tiles / formula KPIs with status icons | `template-overview-profile.html` / `template-overview-kpi.html` |
    | Any single control or state | copy from `template-components.html` |
 
    Copy the template **and** `hub.css` into the output folder (default `mockups/<screen-name>/`). Keep the icon sprite at the top of the file; it is used everywhere.
@@ -46,6 +47,7 @@ Read these (short) files:
 - Footer: primary filled green buttons on the **right** (Edit, Save, New, Update, Print). Secondary/navigation actions as outlined buttons on the **left** (Open, Select, Export, Clear, Cancel). Every button has an icon.
 - Group panel headers: **green** only for report criteria; **grey** in record and process forms.
 - Record-form sections are **collapsible bars** with matching **jump links** in the header. Sections contain **two columns of group panels with a splitter**.
+- Custom, dashboard-like layouts are allowed **only in an Overview section** and only with the documented overview blocks. Every other section uses the standard group panels.
 - Lookups are **inline search** fields (× ⓘ green `…`) that open a **popup grid**, never a plain dropdown.
 - Font Segoe UI; dense sizes (12–13px content). Don't "modernize" spacing or sizes.
 - Thin line icons; reuse the sprite symbols and add new ones in the same style.
