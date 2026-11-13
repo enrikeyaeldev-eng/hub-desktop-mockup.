@@ -35,6 +35,15 @@ Sampled from screenshots of the real app and defined as CSS variables in section
 | `--danger` | #D0021B | Invalid border, error mark, error tip |
 | `--status-bad` / `--status-ok` | #FF0000 / #019E13 | Status icons |
 | `--illustration` | #1F5A96 | Only inside option previews |
+| `--dir-out` / `--dir-in` | #2DB312 / #2A6AD6 | Direction icons (outgoing / incoming) |
+| `--marker-purple` | #954A9F | Default marker color |
+| `--segment-active` | #D7DEDD | Active segment |
+| `--selected-outline` | #627D77 | Outline of a selected comment |
+| `--chip-inner` | #273E39 | Boxed values inside a range chip |
+| `--divider` | #D4D4D4 | Tree dividers, sidebar edge, preview border |
+| `--status-new` | #F2C200 | "New" status icon |
+| `--backdrop` | rgba(0,0,0,.22) | Dimmed page under a modal |
+| `--modal-frame` | #E9E9E9 | Modal sheet frame |
 
 ## Typography
 

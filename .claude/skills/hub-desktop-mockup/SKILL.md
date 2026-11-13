@@ -33,7 +33,8 @@ The library is **atomic**: atoms → molecules → organisms, placed with layout
 ## Hard rules
 
 - Canvas 1920×1030 (maximized on 1080p). Not responsive.
-- Shell always present: tab strip with `CORE USA` first, page header, action bar, rail. The rail never changes.
+- Shell always present: tab strip with `CORE USA` first, action bar, rail (never changes); page header on every page except a bare three-pane page. An optional full-height sidebar (tree nav or pane) can sit left of the page.
+- Modals open over a dimmed page (tab strip and rail stay visible) and carry their own breadcrumb and action bar.
 - Action bar: outline buttons left, primary buttons right, each with an icon.
 - Panel headers are grey by default; `.accent` (green) only for the single primary panel of a side-by-side layout.
 - Lookups are always inline search with a popup grid, never plain dropdowns.

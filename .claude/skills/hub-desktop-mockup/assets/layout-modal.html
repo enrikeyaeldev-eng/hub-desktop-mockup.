@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Layout – modal</title>
+<link rel="stylesheet" href="hub.css">
+</head>
+<body>
+<!-- ICON SPRITE: keep in every page. Use <svg class="i"><use href="#i-name"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 4h18l-7 9v7l-4-2v-5z"/></symbol>
+  <symbol id="i-rec" viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="14" fill="currentColor" stroke="none"/><path d="M18 7v10M21 9v6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14.5"/><circle cx="16" cy="12.5" r="5"/><path d="M6.5 26.5c2-4.5 5.5-6.5 9.5-6.5s7.5 2 9.5 6.5"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5"/><path d="M11 5.5h10"/><rect x="3" y="10" width="5" height="5"/><path d="M11 12.5h10"/><path d="M3 19.5h5M11 19.5h10"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0 5.8 5.2L9 23l-3-3L17.3 8.7"/><path d="M14.5 6.5 17 4a4.5 4.5 0 0 1 3.5 1.5L18 8"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4h12l-2 4 2 4H7v5"/><path d="M4 17h3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 1-1 1.7v1M12 17v.5"/></symbol>
+  <symbol id="i-inspect" viewBox="0 0 24 24"><path d="M13 19H3V5h18v6"/><circle cx="17" cy="16" r="3"/><path d="m19.2 18.2 2.3 2.3"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 52 44"><path d="M7 4H3v36h4M45 4h4v36h-4"/><path d="M11 22h4M15 16v12M19 19v6M23 12v20M27 18v8M31 20v4M35 8v28M39 22h2"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4l7 7-7 7v-4c-5 0-8 1.5-11 5 1-6 4-10 11-10.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M3 12h17M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M21 12H4M10 6l-6 6 6 6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z" fill="currentColor"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h8V4M8 20v-6h8v6"/></symbol>
+  <symbol id="i-preview" viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M3 20h5"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="9" rx="1" fill="currentColor"/><rect x="6" y="14" width="12" height="7" fill="var(--primary)"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><path d="M2 9h20M2 14.5h20M9 4v16"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M3 5h9M3 10h6M3 15h4"/><circle cx="14" cy="14" r="5"/><path d="m18 18 4 4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M14 2 7 14h5l-2 8 7-12h-5z" fill="currentColor"/></symbol>
+  <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+  <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M14 3l7 7-2 1-3 3 1 4-2 2-4-4-5 5M9 15l-4-4 2-2 4 1 3-3 1-2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-magnify" viewBox="0 0 24 24"><circle cx="14" cy="10" r="6"/><path d="M10 14l-7 7"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-tiles" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16M12 9h9M12 14h9"/><path d="m5 9 4 6M9 9l-4 6"/></symbol>
+  <symbol id="i-earth" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M4 21l2-5h12l2 5z"/></symbol>
+  <symbol id="i-drive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 4v5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M3 23c0-5 4-8.5 9-8.5s9 3.5 9 8.5z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="m3 6 9 7 9-7"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="3" width="12" height="14" rx="1"/><path d="M5 7v14h11"/></symbol>
+  <symbol id="i-face-sad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 16.5c2.5-2.5 5.5-2.5 8 0"/></symbol>
+  <symbol id="i-face-neutral" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8.5 15h7"/></symbol>
+  <symbol id="i-face-happy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 14c2.5 2.5 5.5 2.5 8 0"/></symbol>
+  <symbol id="i-dir-out" viewBox="0 0 24 24"><path d="M6 18 18 6M9 6h9v9"/></symbol>
+  <symbol id="i-dir-in" viewBox="0 0 24 24"><path d="M6 6l12 12M18 9v9H9"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+  <symbol id="i-record" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4h-4"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L5 20h14L14 9V3"/><path d="M7.5 15h9"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M10 3l1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8zM18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+  <symbol id="i-reply" viewBox="0 0 24 24"><path d="M3 9h11a7 7 0 0 1 7 7v3"/><path d="M8 4 3 9l5 5"/></symbol>
+  <symbol id="i-forward" viewBox="0 0 24 24"><rect x="3" y="7" width="13" height="10"/><path d="m3 8 6.5 5L16 8"/><path d="M17 12h5M19.5 9.5 22 12l-2.5 2.5"/></symbol>
+  <symbol id="i-pane-left" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M8 4v16M15 9l-3 3 3 3"/></symbol>
+  <symbol id="i-pane-right" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M16 4v16M9 9l3 3-3 3"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M20 11 12 19a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/></symbol>
+  <symbol id="i-status-sent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8l5 4-5 4z" fill="currentColor"/></symbol>
+  <symbol id="i-status-done" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-comment" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="i-file-warn" viewBox="0 0 24 24"><path d="M12 2v9M8.5 7.5 12 11l3.5-3.5"/><path d="M8 6H4v14h9"/><path d="M17 11l5 9h-10z"/><path d="M17 14.5v2.5M17 18.6v.3"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><path d="M3 12h2M8 12h2M13 12h7M16 8l4 4-4 4"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6L20 9"/><path d="M20 4v5h-5"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="14" rx="1"/><path d="M8 18l-2 3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  <symbol id="i-block" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="m6.5 6.5 11 11"/></symbol>
+  <symbol id="i-float" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v6H4V6h6"/></symbol>
+  <symbol id="i-row-details" viewBox="0 0 24 24"><path d="M4 14v6h16v-6"/><path d="M12 3v11M8 10l4 4 4-4"/></symbol>
+  <symbol id="i-add-person" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+</svg>
+
+<div class="window">
+  <!-- SHELL: tab strip -->
+  <div class="tabstrip">
+    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div><div class="tab is-active"><span class="t">VPG-4471-KQ [Applicant Group]</span><span class="close">✕</span></div>
+    <div class="titlebar"><svg class="i rec"><use href="#i-rec"/></svg><svg class="i user"><use href="#i-user"/></svg><span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span></div>
+  </div>
+
+  <!-- PAGE -->
+  <main class="page">
+    <div class="page-header has-nav">
+      <span class="page-title">Applicant Group: VPG-4471-KQ</span>
+      <span class="page-actions"><svg class="i"><use href="#i-gear"/></svg><svg class="i fill"><use href="#i-share"/></svg></span>
+      <nav class="jump-nav"><a href="#">General</a><a href="#">Documents</a></nav>
+    </div>
+    <div class="page-body stack">
+<div class="stack"><section class="collapsible is-open">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>General<span class="collapsible-tools"><svg class="i"><use href="#i-pin"/></svg></span></div>
+  <div class="collapsible-body"><div class="split halves"><div class="split-col"><section class="panel">
+  <div class="panel-header accent">Main</div>
+  <div class="panel-body tight"><div class="field-grid">
+      <div class="field"><label>Event series</label><div class="input">2027 Volunteer Programs (service year 2027)</div></div><div class="field"><label>Group number</label><div class="input">VPG-4471-KQ</div></div>
+      <div class="field span-2"><label class="is-required">Available date range</label><div class="range" style="width:50%"><div class="input is-focused"><span class="sel">11/20/2026</span><svg class="i input-icon"><use href="#i-calendar"/></svg></div><span class="dash"></span><div class="input">11/28/2026<svg class="i input-icon"><use href="#i-calendar"/></svg></div></div></div>
+      <div class="field"><label>Initial selection status</label><div class="input"></div></div><div></div>
+      <div class="field span-2"><label>Initial selection event</label><div class="input"></div></div>
+    </div></div>
+</section><section class="panel">
+  <div class="panel-header">Event preferences</div>
+  <div class="panel-body tight"><div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div><table class="data-grid embedded"><thead><tr><th class="center"><span class="checkbox"></span></th><th>Sequence</th><th>Event</th><th class="fill"></th></tr></thead><tbody><tr><td></td><td>1</td><td>EVT-0248 Volunteer Program 2026 - Coastal</td><td class="fill"></td></tr></tbody></table><div class="grid-footer">Records (1)</div></div>
+</section></div><div class="splitter"></div><div class="split-col"><section class="panel">
+  <div class="panel-header">Group contact person details<span class="panel-actions"><span class="btn-icon"><svg class="i"><use href="#i-copy"/></svg></span></span></div>
+  <div class="panel-body tight"><div class="contact-head"><div class="avatar sm"><svg class="i"><use href="#i-person"/></svg></div><div><div class="n">Rivera, Ana</div><div class="s">(10442) Springfield - IL (USA)</div><div class="s">Volunteer</div></div></div><div class="contact-columns"><div class="contact-item"><svg class="i"><use href="#i-phone"/></svg><span class="l">Cell phone</span><span class="v">555-0142</span><span class="l">Home phone number</span><span class="v">555-0199</span></div><div class="contact-item"><svg class="i"><use href="#i-mail"/></svg><span class="l">E-mail address</span><span class="v">ana.rivera@example.org</span><span class="l">External e-mail address</span><span class="v">ana.r@example.net</span></div><div class="contact-item"><svg class="i"><use href="#i-home"/></svg><span class="l">Formatted address</span><span class="v">Ana Rivera</span></div></div></div>
+</section><section class="panel">
+  <div class="panel-header">Notes</div>
+  <div class="panel-body tight"><div class="field"><label>Notes</label><div class="input multiline tall"></div></div></div>
+</section></div></div><section class="panel full-width">
+  <div class="panel-header">Applicants<span class="panel-actions"><span class="btn-icon"><svg class="i"><use href="#i-block"/></svg></span></span></div>
+  <div class="panel-body tight"><div class="grid-tools"><span class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</span><span class="btn-text"><svg class="i"><use href="#i-row-details"/></svg>Show row details</span><span class="btn-text"><svg class="i"><use href="#i-float"/></svg>Float</span></div><table class="data-grid embedded compact"><thead><tr><th class="center"><span class="checkbox is-checked"></span></th><th>Group contact</th><th>Application status<span class="dots">••</span></th><th>Selection status</th><th>Expiry date</th><th>Congregation</th><th>Age</th><th>Special rooming requested</th><th class="fill"></th></tr></thead><tbody><tr class="is-active"><td class="center"><span class="checkbox is-checked"></span></td><td class="center"><span class="checkbox is-checked"></span></td><td><span class="status-icon ok">✓</span> Approved</td><td></td><td class="num">9/11/2027</td><td>Springfield - IL (USA)</td><td class="num">41.20</td><td class="center"><span class="checkbox"></span></td><td class="fill"></td></tr></tbody></table><div class="scrollbar-h"></div><div class="grid-footer">Records (1)</div></div>
+</section></div>
+</section></div>
+    </div>
+  </main>
+
+  <!-- SHELL: action bar -->
+  <footer class="action-bar">
+    <span class="spacer"></span><button class="btn primary" disabled><svg class="i"><use href="#i-dots"/></svg><span>More<span class="btn-menu"><svg class="i"><use href="#i-chev-down"/></svg></span></span></button><button class="btn primary"><svg class="i"><use href="#i-add-person"/></svg><span>New applicant</span></button><button class="btn primary"><svg class="i"><use href="#i-tick"/></svg><span>Update selection<span class="btn-menu"><svg class="i"><use href="#i-chev-down"/></svg></span></span></button><button class="btn primary"><svg class="i"><use href="#i-trash"/></svg><span>Delete</span></button><button class="btn primary"><svg class="i"><use href="#i-plus"/></svg><span>New</span></button><button class="btn primary" disabled><svg class="i"><use href="#i-save"/></svg><span>Save</span></button><button class="btn primary" disabled><svg class="i"><use href="#i-undo"/></svg><span>Undo</span></button>
+  </footer>
+
+  <!-- MODAL (over the page, under the rail) -->
+<div class="backdrop"></div>
+<div class="modal">
+  <div class="modal-crumbs"><div class="crumbs"><span class="crumb">VPG-4471-KQ [Applicant Group]</span><span class="crumb is-current is-dirty">New applicant (new)</span></div></div>
+  <div class="modal-body"><section class="collapsible is-open">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg></div>
+  <div class="collapsible-body"><div class="split halves"><div class="split-col"><section class="panel">
+  <div class="panel-header accent">Main</div>
+  <div class="panel-body tight"><div class="field-grid cols-3">
+      <div class="field"><label class="is-required">Person</label><div class="lookup"><div class="input is-focused is-placeholder">Search persons</div><span class="lookup-adorn"><svg class="i"><use href="#i-info"/></svg><span class="btn-square sm"><svg class="i"><use href="#i-dots"/></svg></span></span></div></div><div class="field span-2"><label>Application type</label><div class="input is-readonly">VP 2026 Coastal (VP-248)</div></div>
+      <div class="field"><label class="is-required">Application status</label><div class="select"><span class="status-icon new" style="margin-right:6px">✱</span>New<i class="caret"></i></div></div>
+      <div class="field"><label class="is-required">Application date</label><div class="input">11/13/2026</div></div><div class="field"><label class="is-required">Expiry date</label><div class="input">11/13/2027</div></div>
+      <div class="field"><label>Initial selection status</label><div class="input is-readonly"></div></div><div class="span-2"></div>
+      <div class="field span-2"><label>Initial selection event</label><div class="input is-readonly"></div></div>
+    </div></div>
+</section><section class="panel">
+  <div class="panel-header">Event</div>
+  <div class="panel-body tight"><div class="field-grid">
+      <div class="field"><label>Selection status</label><div class="input is-readonly"></div></div><div class="field"><label>Assigned event</label><div class="input is-readonly"></div></div>
+      <div class="range-fields" style="grid-column:span 1"><div class="field"><label>Available date range</label><div class="input is-readonly">11/20/2026</div></div><span class="dash"></span><div class="field"><label></label><div class="input is-readonly">11/28/2026</div></div></div><div class="field"><label>Group contact</label><div class="input is-readonly">No</div></div>
+      <div class="field"><label>Special rooming requested</label><div class="option-group vertical"><span class="option"><span class="radio"></span>Yes</span><span class="option"><span class="radio is-checked"></span>No</span></div></div>
+    </div></div>
+</section></div><div class="splitter"></div><div class="split-col"><section class="panel">
+  <div class="panel-header">Person details<span class="panel-actions"><span class="btn-icon"><svg class="i"><use href="#i-copy"/></svg></span></span></div>
+  <div class="panel-body"><div style="height:180px"></div></div>
+</section></div></div></div>
+</section></div>
+  <div class="modal-actions"><span class="spacer"></span><button class="btn primary"><svg class="i"><use href="#i-save"/></svg><span>Save</span></button><button class="btn primary" disabled><svg class="i"><use href="#i-undo"/></svg><span>Undo</span></button><button class="btn primary"><svg class="i"><use href="#i-arrow-left"/></svg><span>Back</span></button></div>
+</div>
+
+  <!-- SHELL: right rail (do not change) -->
+  <nav class="rail">
+    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="rail-count">1646</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-wrench"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-alert"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="rail-badge">9+</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-help"/></svg></div>
+    <div class="rail-item"><span class="rail-ai">AI<small>BETA ✦</small></span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-inspect"/></svg></div>
+    <div class="rail-logo"><svg class="i"><use href="#i-logo"/></svg></div>
+  </nav>
+</div>
+</body>
+</html>

@@ -34,6 +34,19 @@ Every component is named for **what it is**, never for the screen where it was f
 | Splitter | `.splitter` | Draggable divider with grip between columns. |
 | Scroll indicators | `.scroll-hint`, `.scrollbar-v`, `.scrollbar-h` | |
 | Text | `.link`, `.hint`, `.dots` | `.dots` = column-menu `•••` in grid headers. |
+| Text button | `.btn-text` | Borderless action: "Collapse all", "Show all", "Add file 📎", grid tools. |
+| Chip button | `.btn-chip` | Small green quick action, e.g. inline in a collapsible bar ("Load all", "In the last year"). |
+| Button with menu | `.btn` > `.btn-menu` | Chevron segment after the label = the button opens a menu (More ⌄, Watch ⌄). |
+| Direction icon | `.i.dir-out` (green ↗) / `.i.dir-in` (blue ↘) | Outgoing / incoming item. |
+| Marker | `.marker` (`--marker` color) | Small colored square before a label (category, privacy). |
+| File icon | `.file-icon` | Letter in a box (W, X, P…) for file type. |
+| Value text | `.value-text` | Read-only value shown as plain text (no box), e.g. Active: Yes. |
+| Input icon | `.input` > `.input-icon` | Trailing icon in an input, e.g. calendar on a date input. `.sel` = selected text. |
+| Multiline sizes | `.input.multiline.tall` / `.short` | |
+| Small select | `.select.sm` | Compact select in pane footers. |
+| Two-line clamp | `.clamp-2` | Long text in grid cells, cut after two lines. |
+| Status icon: new | `.status-icon.new` | Yellow ✱, e.g. inside a status select. |
+| Backdrop | `.backdrop` | Dims the page under a modal (not the tab strip or rail). |
 
 ## Molecules
 
@@ -58,6 +71,15 @@ Every component is named for **what it is**, never for the screen where it was f
 | Tab pills | `.tab-pills` > `.tab-pill` (`.is-active`) + `.pin` | Small in-panel tabs with a pointer. |
 | Option preview | `.option-preview` | Illustration above an option group showing what a setting does. |
 | Feedback | `.feedback` | ☹ 😐 ☺ in a corner. |
+| Segmented filter | `.segmented` > `.segment` (`.is-active`) | e.g. Comments (n) · Actions (n) · All. |
+| File chip / file row | `.file-chip` (`.is-selected`), `.file-row` (`.is-selected`) | Attachment as a chip (name + size, `⋯` when selected) or as a row in a list. |
+| Entry | `.entry` > `.entry-title` + `.entry-sub` + `.entry-meta` (+ `.entry-children`, `.entry-group-title`, `.entry-ref`) | Item in a related list: chevron, direction icon, bold title, route, meta right, nested files/references. |
+| Tree node | `.tree-node` (`.is-selected`), `style="--level:n"` | Chevron (open / closed / blank), doc icon, wrapped label, divider; selected = green left bar + bold. |
+| Comment | `.comment` (`.is-selected`) > `.comment-head` + `.comment-text` (+ `.comment-actions`) | Selected comment is outlined and shows Delete / Copy / … actions. |
+| Empty state | `.empty-state` > `.i` + `.t` + `.s` | Large green icon, bold message, detail line. |
+| Range chip | `.chip` > `.chip-value.has-caret` + `.chip-value.boxed` + `.dash` + `.chip-value.boxed` | Preset + from/to values in one filter chip. |
+| Breadcrumb | `.crumbs` > `.crumb` (`.is-current`, `.is-dirty`) | Arrow steps; earlier levels green, current outlined, `*` = unsaved. |
+| Grid tools | `.grid-tools` > `.filter-link` + `.btn-text`… | Filter · Show row details · Float. |
 
 ## Organisms
 
@@ -77,6 +99,12 @@ Every component is named for **what it is**, never for the screen where it was f
 | Tile list | `.tile-list` > `.list-tile` + `.scrollbar-v` | |
 | Grid toolbar | `.grid-toolbar` > `.context` + fields | Context text left, filter fields right. |
 | Jump nav | `.jump-nav` (`.wrap`) > `a` (`.is-current`) | One link per collapsible. |
+| Tree nav | `.tree-nav` > `.tree-nav-header` + `.tree-node`… | Hierarchy of a record and its children; goes in the shell sidebar. |
+| Pane | `.pane` > `.pane-header` (+ `.tools`) + `.pane-toolbar` + `.pane-body` + `.pane-footer` | Column with its own header/toolbar; e.g. a related-entries list in the sidebar. |
+| Preview | `.preview` > `.preview-head` + `.preview-files` + `.preview-body` (`.preview-page` or `.empty-state`) | White document viewer with title, status, file chips. |
+| Activity | `.activity` > `.tab-pills` + `.activity-filters` (segmented + gear) + comment input + `.comment`… | |
+| Modal | `.backdrop` + `.modal` > `.modal-crumbs` + `.modal-body` + `.modal-actions` | Sheet over the page for creating/editing a child item; own breadcrumb and action bar (Save · Undo · Back). |
+| Active grid row | `table.data-grid tr.is-active` | Selected + current row: solid green, white text. |
 
 ## Layout primitives
 

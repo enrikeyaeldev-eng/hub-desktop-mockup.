@@ -34,5 +34,14 @@ Gradient `--rail-top` → `--rail-bottom`. White line icons ~77px apart: task li
   - `.has-search`: column of search input and/or chip bar (+ filter editor); share ↗ top-right.
 - `.page-body`: `--content-bg` surface with shadow. `.page-body.stack` is transparent and holds a `.stack` of collapsibles.
 
+## Sidebar — `.window.has-sidebar` + `.sidebar`
+Optional full-height column left of the page **and** the action bar (width `--sidebar-w`, default 283px; 517px for a list pane). Grey background with a thick divider on its right. Holds a tree nav or a pane.
+
+## Bare page — `.page.bare`
+No page header; the page body starts right under the tab strip (used with `.panes`).
+
+## Modal — `.backdrop` + `.modal`
+Covers the page and action bar (not the tab strip or rail). The modal sheet sits ~50px in from the page edges, has a breadcrumb on top, a body (usually one untitled collapsible with panels) and its own white action bar at the bottom.
+
 ## Action bar — `.action-bar`
 62px, surface background. `.btn.outline` on the left, then `.spacer`, then `.btn.primary` on the right. Buttons are 40px tall, 8px apart, always icon + label.
