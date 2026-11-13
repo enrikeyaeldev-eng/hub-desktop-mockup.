@@ -48,7 +48,7 @@
   <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z" fill="currentColor"/></symbol>
   <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h8V4M8 20v-6h8v6"/></symbol>
   <symbol id="i-preview" viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M3 20h5"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></symbol>
-  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="9" rx="1" fill="currentColor"/><rect x="6" y="14" width="12" height="7" fill="var(--primary)"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="9" rx="1" fill="currentColor"/><rect x="6" y="14" width="12" height="7" fill="var(--print-paper, var(--primary))"/></symbol>
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><path d="M2 9h20M2 14.5h20M9 4v16"/></symbol>
   <symbol id="i-report" viewBox="0 0 24 24"><path d="M3 5h9M3 10h6M3 15h4"/><circle cx="14" cy="14" r="5"/><path d="m18 18 4 4"/></symbol>
   <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M14 2 7 14h5l-2 8 7-12h-5z" fill="currentColor"/></symbol>
@@ -285,7 +285,7 @@
 </article></div></section>
 <section class="level"><h2>Organisms</h2><p class="intro">Self-contained blocks that make up a page.</p><div class="specs"><article class="spec wide">
   <header><b>Panel</b><code>.panel &gt; .panel-header(.accent) (+ .panel-actions) + .panel-body   .panel.headless</code></header>
-  <p>Grey is the default; green only for the main criteria panel of a side-by-side layout.</p>
+  <p>Grey is the default. Accent (green) marks the one main panel being filled in: report criteria, or the Main panel in edit/create mode.</p>
   <div class="demo"><div class="panel-grid" style="padding:0"><section class="panel">
   <div class="panel-header">Default (grey)<span class="panel-actions"><span class="btn-icon"><svg class="i"><use href="#i-export"/></svg></span></span></div>
   <div class="panel-body"><div class="field"><label>Name</label><div class="input is-readonly">Value</div></div></div>
@@ -312,7 +312,7 @@
   <div class="collapsible-body"><div style="height:40px"></div></div>
 </section><section class="collapsible">
   <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Closed section</div>
-  
+  <div class="collapsible-body"><div style="height:60px"></div></div>
 </section></div></div>
 </article><article class="spec wide">
   <header><b>Data grid</b><code>table.data-grid (.embedded .compact .striped)  tr.is-selected/.is-focused</code></header>
@@ -361,6 +361,10 @@
   <header><b>Data grid: active row</b><code>tr.is-active</code></header>
   <p>Selected + current row is solid green.</p>
   <div class="demo"><div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div><table class="data-grid embedded compact"><thead><tr><th class="center"><span class="checkbox is-checked"></span></th><th>Group contact</th><th>Status</th><th>Age</th><th class="fill"></th></tr></thead><tbody><tr class="is-active"><td class="center"><span class="checkbox is-checked"></span></td><td class="center"><span class="checkbox is-checked"></span></td><td><span class="status-icon ok">✓</span> Approved</td><td class="num">41.20</td><td class="fill"></td></tr><tr><td class="center"><span class="checkbox"></span></td><td class="center"><span class="checkbox"></span></td><td>Pending</td><td class="num">38.10</td><td class="fill"></td></tr></tbody></table><div class="grid-footer">Records (2)</div></div>
+</article><article class="spec wide">
+  <header><b>Inline grid editing</b><code>td.is-editing  tr.is-new  td.fill.has-error-tip</code></header>
+  <p>Edited row shows controls; the last row adds a line; an invalid cell puts its tip in the fill column.</p>
+  <div class="demo"><div class="grid-tools"><span class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</span><span class="btn-text"><svg class="i"><use href="#i-plus"/></svg>Add row</span><span class="btn-text"><svg class="i"><use href="#i-trash"/></svg>Remove</span></div><table class="data-grid embedded compact"><thead><tr><th class="center"><span class="checkbox"></span></th><th>Seq.</th><th>Ingredient</th><th>Amount</th><th>Unit</th><th class="fill"></th></tr></thead><tbody><tr><td class="center"><span class="checkbox"></span></td><td>1</td><td>Olive oil</td><td class="num">200</td><td>mL</td><td class="fill"></td></tr><tr class="is-selected"><td class="center"><span class="checkbox"></span></td><td>2</td><td class="is-editing"><div class="lookup"><div class="input">Onions</div><span class="lookup-adorn"><svg class="i"><use href="#i-x"/></svg><svg class="i"><use href="#i-info"/></svg><span class="btn-square sm"><svg class="i"><use href="#i-dots"/></svg></span></span></div></td><td class="is-editing"><div class="input num is-invalid">0</div></td><td class="is-editing"><div class="select">kg<i class="caret"></i></div></td><td class="fill has-error-tip"><div class="error-tip">Amount must be greater than 0.</div></td></tr><tr class="is-new"><td></td><td></td><td>Type to add an ingredient</td><td></td><td></td><td class="fill"></td></tr></tbody></table><div class="grid-footer">Records (2)</div></div>
 </article><article class="spec">
   <header><b>Tree nav</b><code>.tree-nav &gt; .tree-nav-header + .tree-node…</code></header>
   
@@ -443,6 +447,7 @@
 </section></div>
 </section></div><div class="modal-actions"><span class="spacer"></span><button class="btn primary"><svg class="i"><use href="#i-save"/></svg><span>Save</span></button><button class="btn primary" disabled><svg class="i"><use href="#i-undo"/></svg><span>Undo</span></button><button class="btn primary"><svg class="i"><use href="#i-arrow-left"/></svg><span>Back</span></button></div></div></div></div>
 </article></div></section>
+<script src="prototype.js"></script>
 <section class="level"><h2>Layouts</h2><p class="intro">Example pages composed from the organisms above, inside the shell (tab strip, page header, page body, action bar, rail).</p><div class="spec"><ul><li><a href="layout-menu-cards.html">Menu cards</a> — quick search header + wrapping menu cards</li><li><a href="layout-panels-side-by-side.html">Panels side by side</a> — title header + two panels (accent + default)</li><li><a href="layout-search-cards.html">Search → cards</a> — search header + collapsibles with info cards</li><li><a href="layout-search-grid.html">Search → grid</a> — search header + collapsible with data grid</li><li><a href="layout-collapsible-sections.html">Collapsible sections</a> — nav header + stack of collapsibles; split halves of panels</li><li><a href="layout-collapsible-sections-stats.html">Collapsible sections + stats</a> — identity header, contact card and stat equation inside collapsibles</li><li><a href="layout-filter-sidebar.html">Filter bar + sidebar</a> — chip bar + filter editor header; split sidebar with tile list, progress and grid</li><li><a href="layout-single-grid.html">Single grid</a> — title header + one striped grid sheet</li><li><a href="layout-tree-sidebar.html">Tree sidebar</a> — tree nav sidebar + nav header + collapsibles</li><li><a href="layout-three-panes.html">Three panes</a> — related-list pane sidebar + preview + activity pane</li><li><a href="layout-edit-mode.html">Edit mode</a> — collapsibles in edit state: editable inputs, date input, active grid row, save/undo</li><li><a href="layout-modal.html">Modal</a> — modal with breadcrumb and own action bar over a dimmed page</li></ul></div></section>
 </body>
 </html>

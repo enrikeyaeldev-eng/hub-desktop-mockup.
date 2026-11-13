@@ -94,6 +94,7 @@ body { font-family: var(--font); font-size: 13px; color: var(--text); }
 .btn.primary[disabled] { background: var(--primary-disabled); box-shadow: none; }
 .btn.outline { background: var(--surface); border-color: #b5b5b5; color: #8a8a8a; padding-left: 10px; }
 .btn.outline .i { width: 22px; height: 22px; }
+.btn.outline { --print-paper: var(--surface); }
 .btn.outline[disabled] { color: #a8a8a8; border-color: #c9c9c9; }
 
 /* Icon button (outlined, small) */
@@ -604,6 +605,20 @@ table.data-grid tr.is-active .checkbox.is-checked::after { border-color: var(--p
 .modal-actions { height: 50px; flex: none; margin-top: 20px; background: var(--white); display: flex; align-items: center; gap: 8px; padding: 0 20px; }
 .modal-actions .btn { height: 34px; }
 
+/* Inline grid editing: cells of the edited row hold controls; last row adds a new line */
+table.data-grid td.is-editing { padding: 0 4px; overflow: visible; position: relative; }
+table.data-grid.embedded td.is-editing + td.is-editing { padding-left: 4px; }
+table.data-grid td.is-editing > .input, table.data-grid td.is-editing > .select, table.data-grid td.is-editing > .lookup > .input { height: 24px; }
+table.data-grid td.is-editing .lookup > .input { padding-right: 58px; }
+table.data-grid td.fill.has-error-tip { position: relative; overflow: visible; }
+table.data-grid td.fill.has-error-tip > .error-tip { left: 6px; top: 5px; }
+table.data-grid tr.is-new td { color: var(--text-muted); font-style: italic; }
+
+/* Lists inside a pane fill the pane body and scroll on their own */
+.pane-body > .tile-list { height: 100%; padding: 4px 22px 8px 14px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+.pane-body > .empty-state { height: 100%; justify-content: center; padding: 0 30px; text-align: center; }
+.scrollbar-v.is-scrolled::before { top: 40%; }
+
 /* ---------------------------------------------------------------------
    5 · LAYOUT
    --------------------------------------------------------------------- */
@@ -698,10 +713,15 @@ table.data-grid tr.is-active .checkbox.is-checked::after { border-color: var(--p
 /* Action bar (footer) */
 .action-bar { grid-area: actions; background: var(--surface); display: flex; align-items: center; gap: 8px; padding: 0 23px 0 17px; border-top: 1px solid #c3c3c3; }
 
-/* Shell variant: full-height sidebar left of the page and action bar */
-.window.has-sidebar { grid-template-columns: var(--sidebar-w, 283px) 1fr 74px; grid-template-areas: "tabs tabs tabs" "side page rail" "side actions rail"; }
+/* Shell variant: sidebar left of the page. The action bar runs the full width under it.
+   .sidebar-full = sidebar reaches the bottom and the action bar starts after it (only when asked). */
+.window.has-sidebar { grid-template-columns: var(--sidebar-w, 283px) 1fr 74px; grid-template-areas: "tabs tabs tabs" "side page rail" "actions actions rail"; }
+.window.has-sidebar.sidebar-full { grid-template-areas: "tabs tabs tabs" "side page rail" "side actions rail"; }
 .sidebar { grid-area: side; background: var(--content-bg); border-right: 10px solid var(--divider); display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
 .window.has-sidebar .page { padding-left: 0; }
 /* Page variant: no header, content fills from the tab strip down */
 .page.bare { padding-top: 6px; gap: 0; }
 .page.bare > .page-body { background: transparent; box-shadow: none; overflow: visible; }
+
+/* Prototype helpers: anything clickable in a click-through prototype */
+[data-href], .list-tile, .collapsible-bar, .jump-nav a, table.data-grid tbody tr { cursor: pointer; }

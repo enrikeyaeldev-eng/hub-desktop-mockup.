@@ -20,7 +20,29 @@ npm install -g @anthropic-ai/claude-code
 claude
 ```
 
-Mockups are written to `mockups/<feature>/` (HTML + `hub.css`). Open them in the browser, or import them into Figma (see `references/figma.md`).
+Prototypes are written to `mockups/<feature>/` (one folder per design option when you ask for several). Each folder has an `index.html` start screen plus `hub.css` and `prototype.js`. To click through one in a Codespace:
+
+```bash
+python3 -m http.server 8000 --directory mockups/<feature>
+```
+
+Then open the forwarded port 8000 in the browser. They can also be imported into Figma (see `references/figma.md`).
+
+## Install it in your Claude organization account (claude.ai)
+
+1. Build the zip (the zip must contain the `hub-desktop-mockup/` folder with `SKILL.md` inside):
+
+   ```bash
+   cd .claude/skills && zip -r ../../hub-desktop-mockup.zip hub-desktop-mockup && cd ../..
+   ```
+
+2. Download `hub-desktop-mockup.zip` from the Codespace (right-click it in the Explorer → Download).
+3. In claude.ai: **Settings → Capabilities → Skills → Upload skill**, and pick the zip. Code execution must be turned on for skills to run. On a Team or Enterprise plan an owner may need to allow skills first, and owners can share a skill with the whole organization.
+
+**Updating:** claude.ai does not sync with GitHub. After you change the skill here, build a new zip and upload it again over the existing skill. Don't commit the zip.
+
+In Claude Code nothing needs installing: anyone who clones this repo gets the skill from `.claude/skills/`, and `git pull` brings the latest version.
+
 
 ## How it's organised
 
@@ -35,7 +57,8 @@ Components follow **atomic design** and are named for what they are, not where t
 |---|---|
 | `SKILL.md` | When the skill triggers, the workflow, and the rules |
 | `references/components.md` | Atomic catalogue: every component, its classes, variants and states |
-| `references/layouts.md` | How organisms combine into pages; the example layouts |
+| `references/layouts.md` | How organisms combine into pages; rules for action bars, edit mode, child rows, sidebars |
+| `references/prototyping.md` | Folder structure, making prototypes clickable, checking them |
 | `references/shell.md` | Tab strip, page header variants, action bar, rail |
 | `references/tokens.md` | Colors, type, spacing |
 | `references/event-form.md` | Structure of the Event module |
@@ -43,6 +66,7 @@ Components follow **atomic design** and are named for what they are, not where t
 | `assets/hub.css` | Styles, organised Tokens → Atoms → Molecules → Organisms → Layout → Shell |
 | `assets/components.html` | Visual catalogue of every component and state |
 | `assets/layout-*.html` | Example layouts, named by structure |
+| `assets/prototype.js` | Shared script: fit to window, navigation, collapsibles, selection |
 
 ## Teach it new components
 

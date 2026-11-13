@@ -35,7 +35,7 @@ Gradient `--rail-top` → `--rail-bottom`. White line icons ~77px apart: task li
 - `.page-body`: `--content-bg` surface with shadow. `.page-body.stack` is transparent and holds a `.stack` of collapsibles.
 
 ## Sidebar — `.window.has-sidebar` + `.sidebar`
-Optional full-height column left of the page **and** the action bar (width `--sidebar-w`, default 283px; 517px for a list pane). Grey background with a thick divider on its right. Holds a tree nav or a pane.
+Optional column left of the page (width `--sidebar-w`, default 283px; see `layouts.md` for list panes). Grey background with a thick divider on its right. Holds a tree nav or a pane. The **action bar runs the full width under it**; `.window.has-sidebar.sidebar-full` makes the sidebar reach the bottom instead (only when asked).
 
 ## Bare page — `.page.bare`
 No page header; the page body starts right under the tab strip (used with `.panes`).

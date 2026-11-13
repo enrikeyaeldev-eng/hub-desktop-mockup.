@@ -42,7 +42,7 @@ Every component is named for **what it is**, never for the screen where it was f
 | File icon | `.file-icon` | Letter in a box (W, X, P…) for file type. |
 | Value text | `.value-text` | Read-only value shown as plain text (no box), e.g. Active: Yes. |
 | Input icon | `.input` > `.input-icon` | Trailing icon in an input, e.g. calendar on a date input. `.sel` = selected text. |
-| Multiline sizes | `.input.multiline.tall` / `.short` | |
+| Multiline sizes | `.input.multiline` (64px), `.multiline.short` (58px), `.multiline.tall` (138px) | Notes, descriptions, long text. |
 | Small select | `.select.sm` | Compact select in pane footers. |
 | Two-line clamp | `.clamp-2` | Long text in grid cells, cut after two lines. |
 | Status icon: new | `.status-icon.new` | Yellow ✱, e.g. inside a status select. |
@@ -105,6 +105,8 @@ Every component is named for **what it is**, never for the screen where it was f
 | Activity | `.activity` > `.tab-pills` + `.activity-filters` (segmented + gear) + comment input + `.comment`… | |
 | Modal | `.backdrop` + `.modal` > `.modal-crumbs` + `.modal-body` + `.modal-actions` | Sheet over the page for creating/editing a child item; own breadcrumb and action bar (Save · Undo · Back). |
 | Active grid row | `table.data-grid tr.is-active` | Selected + current row: solid green, white text. |
+| Inline grid editing | `td.is-editing` (holds `.input` / `.select` / `.lookup` at 24px), `tr.is-new`, `td.fill.has-error-tip` | The row being edited shows controls in its cells; the last row is an italic "Type to add …" placeholder; an invalid cell's error tip sits in the fill column so it covers no other control. |
+| List in a pane | `.pane-body > .tile-list`, `.pane-body > .empty-state` | Fills the pane body and scrolls on its own. `.scrollbar-v.is-scrolled` draws a scrolled thumb in static pictures. |
 
 ## Layout primitives
 
