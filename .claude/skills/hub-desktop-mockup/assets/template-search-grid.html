@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hub – Search (grid)</title>
+<link rel="stylesheet" href="hub.css">
+</head>
+<body>
+<!-- ICON SPRITE: copy as-is into every mockup. Use with <svg class="i"><use href="#i-name"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 4h18l-7 9v7l-4-2v-5z"/></symbol>
+  <symbol id="i-rec" viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="14" fill="currentColor" stroke="none"/><path d="M18 7v10M21 9v6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14.5"/><circle cx="16" cy="12.5" r="5"/><path d="M6.5 26.5c2-4.5 5.5-6.5 9.5-6.5s7.5 2 9.5 6.5"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5"/><path d="M11 5.5h10"/><rect x="3" y="10" width="5" height="5"/><path d="M11 12.5h10"/><path d="M3 19.5h5M11 19.5h10"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0 5.8 5.2L9 23l-3-3L17.3 8.7"/><path d="M14.5 6.5 17 4a4.5 4.5 0 0 1 3.5 1.5L18 8"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4h12l-2 4 2 4H7v5"/><path d="M4 17h3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 1-1 1.7v1M12 17v.5"/></symbol>
+  <symbol id="i-inspect" viewBox="0 0 24 24"><path d="M13 19H3V5h18v6"/><circle cx="17" cy="16" r="3"/><path d="m19.2 18.2 2.3 2.3"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 52 44"><path d="M7 4H3v36h4M45 4h4v36h-4"/><path d="M11 22h4M15 16v12M19 19v6M23 12v20M27 18v8M31 20v4M35 8v28M39 22h2"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4l7 7-7 7v-4c-5 0-8 1.5-11 5 1-6 4-10 11-10.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M3 12h17M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M21 12H4M10 6l-6 6 6 6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z" fill="currentColor"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h8V4M8 20v-6h8v6"/></symbol>
+  <symbol id="i-preview" viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M3 20h5"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="9" rx="1" fill="currentColor"/><rect x="6" y="14" width="12" height="7" fill="var(--primary)"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><path d="M2 9h20M2 14.5h20M9 4v16"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M3 5h9M3 10h6M3 15h4"/><circle cx="14" cy="14" r="5"/><path d="m18 18 4 4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M14 2 7 14h5l-2 8 7-12h-5z" fill="currentColor"/></symbol>
+  <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+  <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M14 3l7 7-2 1-3 3 1 4-2 2-4-4-5 5M9 15l-4-4 2-2 4 1 3-3 1-2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-magnify" viewBox="0 0 24 24"><circle cx="14" cy="10" r="6"/><path d="M10 14l-7 7"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-tiles" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16M12 9h9M12 14h9"/><path d="m5 9 4 6M9 9l-4 6"/></symbol>
+  <symbol id="i-earth" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M4 21l2-5h12l2 5z"/></symbol>
+  <symbol id="i-drive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 4v5"/></symbol>
+</svg>
+
+<div class="window">
+  <!-- TAB STRIP -->
+  <div class="tabstrip">
+    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div>
+    <div class="tab"><svg class="i"><use href="#i-search"/></svg>Event Reports</div>
+    <div class="tab active"><svg class="i"><use href="#i-search"/></svg><b style="font-weight:600">Events</b><span class="close">✕</span></div>
+    <div class="titlebar-right">
+      <svg class="i rec"><use href="#i-rec"/></svg>
+      <svg class="i avatar"><use href="#i-user"/></svg>
+      <span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="header-panel searchpanel">
+      <div class="searchbox-wrap">
+        <div class="searchbox">
+          <span class="value">test</span>
+          <svg class="i ghost"><use href="#i-x"/></svg><svg class="i ghost"><use href="#i-info"/></svg>
+          <span class="sq-btn wide"><svg class="i"><use href="#i-magnify"/></svg></span><span class="sq-btn"><svg class="i"><use href="#i-x"/></svg></span><span class="sq-btn"><svg class="i"><use href="#i-dots"/></svg></span>
+        </div>
+        <div class="chips">
+          <span class="expander"><svg class="i"><use href="#i-chev-right"/></svg></span>
+          <span class="chip">Canceled<span class="chip-value">No</span><span class="chip-x"><svg class="i"><use href="#i-x"/></svg></span></span>
+        </div>
+      </div>
+      <svg class="i share fill"><use href="#i-share"/></svg>
+    </div>
+
+    <div class="content-panel stack">
+      <section class="section open">
+        <div class="section-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>All results (77)
+          <span class="tools"><span class="view-toggle"><svg class="i on"><use href="#i-list"/></svg><svg class="i"><use href="#i-tiles"/></svg></span></span>
+        </div>
+        <div class="section-body flush" style="padding:0 18px 4px 30px">
+          <div class="dgrid-wrap">
+            <table class="dgrid">
+              <colgroup><col style="width:40px"><col style="width:80px"><col style="width:100px"><col style="width:164px"><col style="width:232px"><col style="width:382px"><col style="width:382px"><col style="width:276px"><col style="width:120px"></colgroup>
+              <thead><tr><th class="c"><span class="check"></span></th><th>Number</th><th>WHQ event</th><th>Host branch</th><th>Type <span style="color:#999">••</span></th><th>Name</th><th>Local name</th><th>Event series</th><th>Geo location</th></tr></thead>
+              <tbody>
+              <tr class="focused"><td class="c"></td><td>40356</td><td class="c"></td><td>(USA) United States</td><td>Accident</td><td>Warehouse fire follow-up inspection</td><td>Warehouse fire follow-up inspection</td><td></td><td>(25) Anguilla</td></tr>
+              <tr class=""><td class="c"></td><td>380</td><td class="c"><svg class="i tick"><use href="#i-tick"/></svg></td><td>(USA) United States</td><td>Dedication</td><td>Facility dedication - North Campus</td><td>Facility dedication - North Campus</td><td>2027 Dedications</td><td></td></tr>
+              <tr class=""><td class="c"></td><td>372</td><td class="c"><svg class="i tick"><use href="#i-tick"/></svg></td><td>(USA) United States</td><td>Dedication</td><td>Facility dedication - East Campus</td><td>Facility dedication - East Campus</td><td>2027 Dedications</td><td></td></tr>
+              <tr class=""><td class="c"></td><td>376</td><td class="c"><svg class="i tick"><use href="#i-tick"/></svg></td><td>(USA) United States</td><td>Dedication</td><td>Facility dedication - West Campus</td><td>Facility dedication - West Campus</td><td>2027 Dedications</td><td></td></tr>
+              <tr class="selected"><td class="c"><span class="check"></span></td><td>377</td><td class="c"><svg class="i tick"><use href="#i-tick"/></svg></td><td>(USA) United States</td><td>Dedication</td><td>Facility dedication - South Campus</td><td>Facility dedication - South Campus</td><td>2027 Dedications</td><td></td></tr>
+              <tr class=""><td class="c"></td><td>382</td><td class="c"><svg class="i tick"><use href="#i-tick"/></svg></td><td>(ZAF) South Africa</td><td>Dedication</td><td>Facility dedication - Johannesburg</td><td>Facility dedication - Johannesburg</td><td>2027 Dedications</td><td></td></tr>
+              <tr class=""><td class="c"></td><td>41596</td><td class="c"></td><td>(USA) United States</td><td>Earthquake/Tsunami</td><td>Coastal earthquake drill</td><td>Coastal earthquake drill</td><td>2026 Earthquake/Tsunami</td><td>(700) Virgin Islands</td></tr>
+              <tr class=""><td class="c"></td><td>328</td><td class="c"><svg class="i tick"><use href="#i-tick"/></svg></td><td>(USA) United States</td><td>Earthquake/Tsunami</td><td>Pacific earthquake response</td><td>Pacific earthquake response</td><td></td><td>(1) USA</td></tr>
+              <tr class=""><td class="c"></td><td>41615</td><td class="c"></td><td>(USA) United States</td><td>Earthquake/Tsunami</td><td>Temporary meeting place setup</td><td>Temporary meeting place setup</td><td></td><td>(1) USA</td></tr>
+              <tr class=""><td class="c"></td><td>41619</td><td class="c"></td><td>(USA) United States</td><td>Earthquake/Tsunami</td><td>Aftershock assessment</td><td>Aftershock assessment</td><td>2026 Earthquake/Tsunami</td><td>(1) USA</td></tr>
+              <tr class=""><td class="c"></td><td>40410</td><td class="c"></td><td>(USA) United States</td><td>Flooding/Landslide</td><td>River valley flooding</td><td>River valley flooding</td><td>2026 Earthquake/Tsunami</td><td>(1) USA</td></tr>
+              <tr class=""><td class="c"></td><td>42782</td><td class="c"></td><td>(USA) United States</td><td>Flooding/Landslide</td><td>Flash flood - Hill County</td><td>Flash flood - Hill County</td><td></td><td>(1) USA</td></tr>
+              <tr class=""><td class="c"></td><td>40374</td><td class="c"></td><td>(USA) United States</td><td>Flooding/Landslide</td><td>Levee breach - Delta region</td><td>Levee breach - Delta region</td><td></td><td>(1) USA</td></tr>
+              <tr class=""><td class="c"></td><td>40364</td><td class="c"></td><td>(USA) United States</td><td>Flooding/Landslide</td><td>Spring flooding - Lake district</td><td>Spring flooding - Lake district</td><td>2024 Flooding</td><td>(28) Antigua and Barbuda</td></tr>
+              <tr class=""><td class="c"></td><td>42772</td><td class="c"></td><td>(USA) United States</td><td>Flooding/Landslide</td><td>Mudslide - Canyon road</td><td>Mudslide - Canyon road</td><td></td><td>(1) USA</td></tr>
+              <tr class=""><td class="c"></td><td>40366</td><td class="c"></td><td>(USA) United States</td><td>Flooding/Landslide</td><td>Coastal surge flooding</td><td>Coastal surge flooding</td><td></td><td>(28) Antigua and Barbuda</td></tr>
+              <tr class=""><td class="c"></td><td>41613</td><td class="c"></td><td>(USA) United States</td><td>Flooding/Landslide</td><td>Landslide - Ridge community</td><td>Landslide - Ridge community</td><td></td><td>(1) USA</td></tr>
+              <tr class=""><td class="c"></td><td>40365</td><td class="c"></td><td>(USA) United States</td><td>Flooding/Landslide</td><td>Seasonal flooding - Key dates test</td><td>Seasonal flooding - Key dates test</td><td>2024 Flooding</td><td>(76) Bermuda</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="hscroll"></div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Recent (15)</div>
+      </section>
+    </div>
+  </div>
+
+  <!-- FOOTER ACTION BAR -->
+  <div class="footer">
+    <button class="btn outline"><svg class="i"><use href="#i-arrow-right"/></svg>Open</button>
+    <button class="btn outline"><svg class="i"><use href="#i-export"/></svg>Export</button>
+    <button class="btn outline"><svg class="i"><use href="#i-earth"/></svg>Google Earth</button>
+    <button class="btn outline"><svg class="i"><use href="#i-earth"/></svg>Show on map</button>
+    <span class="spacer"></span>
+    <button class="btn primary"><svg class="i"><use href="#i-plus"/></svg>New</button>
+  </div>
+
+  <!-- RIGHT RAIL (do not change) -->
+  <nav class="rail">
+    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="count">1646</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-wrench"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-alert"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="badge">9+</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-help"/></svg></div>
+    <div class="rail-item"><span class="ai">AI<small>BETA ✦</small></span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-inspect"/></svg></div>
+    <div class="rail-logo"><svg class="i"><use href="#i-logo"/></svg></div>
+  </nav>
+</div>
+</body>
+</html>
