@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Hub – Overview (KPIs)</title>
+<title>Layout – panels side by side</title>
 <link rel="stylesheet" href="hub.css">
 </head>
 <body>
-<!-- ICON SPRITE: copy as-is into every mockup. Use with <svg class="i"><use href="#i-name"/></svg> -->
+<!-- ICON SPRITE: keep in every page. Use <svg class="i"><use href="#i-name"/></svg> -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
@@ -56,86 +56,44 @@
 </svg>
 
 <div class="window">
-  <!-- TAB STRIP -->
+  <!-- SHELL: tab strip -->
   <div class="tabstrip">
-    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div>
-    <div class="tab"><svg class="i"><use href="#i-search"/></svg>Event Reports</div>
-    <div class="tab active"><b style="font-weight:600">(USA) United States [Personnel Cap]</b><span class="close">✕</span></div>
-    <div class="titlebar-right">
-      <svg class="i rec"><use href="#i-rec"/></svg>
-      <svg class="i avatar"><use href="#i-user"/></svg>
-      <span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span>
-    </div>
+    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div><div class="tab"><svg class="i"><use href="#i-search"/></svg><span class="t">Event Reports</span></div><div class="tab is-active"><span class="t">Kitchen Menu [Report]</span><span class="close">✕</span><div class="tooltip has-arrow">Kitchen Menu [Report]</div></div>
+    <div class="titlebar"><svg class="i rec"><use href="#i-rec"/></svg><svg class="i user"><use href="#i-user"/></svg><span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span></div>
   </div>
 
-  <!-- MAIN -->
-  <div class="main">
-    <div class="header-panel record">
-      <span class="form-title">Personnel Cap: (USA) United States</span>
-      <span class="header-actions"><svg class="i"><use href="#i-gear"/></svg><svg class="i fill"><use href="#i-share"/></svg></span>
-      <nav class="jump-links">
-        <a href="#" class="current">Overview</a><a href="#">Temporary cap adjustments</a><a href="#">Departments</a><a href="#">Site caps</a><a href="#">Change history</a>
-      </nav>
+  <!-- PAGE -->
+  <main class="page">
+    <div class="page-header"><span class="page-title">Kitchen Menu</span><span class="page-actions"><svg class="i fill"><use href="#i-share"/></svg></span></div>
+    <div class="page-body">
+      <div class="panel-grid"><section class="panel">
+  <div class="panel-header accent">Criteria</div>
+  <div class="panel-body"><div class="field-grid">
+      <div class="field"><label class="is-required">Kitchen</label><div class="select"><i class="caret"></i></div></div>
+      <div class="field"><label class="is-required">Date</label><div class="range"><div class="input"></div><span class="dash"></span><div class="input"></div></div></div>
+      <div class="field"><label>Include recipe number</label><span class="checkbox"></span></div>
+      <div class="field"><label>Include recipe description</label><span class="checkbox"></span></div>
+    </div></div>
+</section><section class="panel">
+  <div class="panel-header">Output</div>
+  <div class="panel-body"><div class="field"><label>Font size</label><div class="option-group"><span class="option"><span class="radio is-checked"></span>Normal</span><span class="option"><span class="radio"></span>Large</span></div></div></div>
+</section></div>
     </div>
+  </main>
 
-    <div class="content-panel stack record">
-      <section class="section open">
-        <div class="section-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Overview<span class="tools"><svg class="i"><use href="#i-pin"/></svg></span></div>
-        <div class="section-body">
-          <div class="overview-card" style="padding:20px 30px 16px 20px">
-            <span class="corner"><svg class="i"><use href="#i-face-sad"/></svg><svg class="i"><use href="#i-face-neutral"/></svg><svg class="i"><use href="#i-face-happy"/></svg></span>
-            <div style="width:410px">
-              <div class="field"><label>Site</label><div class="select">All<i class="caret"></i></div></div>
-              <div class="sum-list">
-                <span>Personnel cap</span><span class="n">3,120</span>
-                <span>Temporary cap adjustments</span><span class="n">35</span>
-                <span class="rule"></span>
-                <span>Total personnel cap</span><span class="n">3,155</span>
-              </div>
-            </div>
-            <div class="formula">
-              <div class="ftile"><div class="l">Total personnel cap</div><div class="v">3,155</div><div class="rows"><span>Branch</span><span>2,210</span><span>Translation</span><span>60</span><span>Head office</span><span>885</span></div></div>
-              <span class="op">-</span>
-              <div class="ftile"><div class="l">Current personnel</div><div class="v">3,402</div><div class="rows"><span>Branch</span><span>2,390</span><span>Translation</span><span>58</span><span>Head office</span><span>954</span></div></div>
-              <span class="op">-</span>
-              <div class="ftile"><div class="l">Pending arrivals</div><div class="v">9</div><div class="rows"><span>Branch</span><span>5</span><span>Translation</span><span>1</span><span>Head office</span><span>3</span></div></div>
-              <span class="op">=</span>
-              <div class="ftile"><div class="l">Available personnel slots</div><div class="v">-256<span class="status-ic bad">!</span></div><div class="rows"><span>Branch</span><span>-185 <span class="status-ic bad">!</span></span><span>Translation</span><span>1 <span class="status-ic ok">✓</span></span><span>Head office</span><span>-72 <span class="status-ic bad">!</span></span></div></div>
-              <span class="op"></span>
-              <div class="ftile plain"><div class="l">Pending departures</div><div class="v">41</div><div class="rows"><span>Branch</span><span>27</span><span>Translation</span><span>2</span><span>Head office</span><span>12</span></div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="section">
-        <div class="section-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Temporary cap adjustments</div>
-      </section>
-      <section class="section">
-        <div class="section-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Departments</div>
-      </section>
-      <section class="section">
-        <div class="section-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Site caps</div>
-      </section>
-      <section class="section">
-        <div class="section-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Change history</div>
-      </section>
-    </div>
-  </div>
+  <!-- SHELL: action bar -->
+  <footer class="action-bar">
+    <span class="spacer"></span><button class="btn primary"><svg class="i"><use href="#i-preview"/></svg><span>Preview</span></button><button class="btn primary"><svg class="i"><use href="#i-print"/></svg><span>Print</span></button>
+  </footer>
 
-  <!-- FOOTER ACTION BAR -->
-  <div class="footer">
-    <span class="spacer"></span>
-    <button class="btn primary"><svg class="i"><use href="#i-pencil"/></svg>Edit</button>
-  </div>
-
-  <!-- RIGHT RAIL (do not change) -->
+  <!-- SHELL: right rail (do not change) -->
   <nav class="rail">
-    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="count">1646</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="rail-count">1646</span></div>
     <div class="rail-item"><svg class="i"><use href="#i-wrench"/></svg></div>
     <div class="rail-item"><svg class="i"><use href="#i-alert"/></svg></div>
-    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="badge">9+</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="rail-badge">9+</span></div>
     <div class="rail-item"><svg class="i"><use href="#i-help"/></svg></div>
-    <div class="rail-item"><span class="ai">AI<small>BETA ✦</small></span></div>
+    <div class="rail-item"><span class="rail-ai">AI<small>BETA ✦</small></span></div>
     <div class="rail-item"><svg class="i"><use href="#i-inspect"/></svg></div>
     <div class="rail-logo"><svg class="i"><use href="#i-logo"/></svg></div>
   </nav>

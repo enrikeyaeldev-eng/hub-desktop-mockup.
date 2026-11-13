@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Layout – collapsible sections</title>
+<link rel="stylesheet" href="hub.css">
+</head>
+<body>
+<!-- ICON SPRITE: keep in every page. Use <svg class="i"><use href="#i-name"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 4h18l-7 9v7l-4-2v-5z"/></symbol>
+  <symbol id="i-rec" viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="14" fill="currentColor" stroke="none"/><path d="M18 7v10M21 9v6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14.5"/><circle cx="16" cy="12.5" r="5"/><path d="M6.5 26.5c2-4.5 5.5-6.5 9.5-6.5s7.5 2 9.5 6.5"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5"/><path d="M11 5.5h10"/><rect x="3" y="10" width="5" height="5"/><path d="M11 12.5h10"/><path d="M3 19.5h5M11 19.5h10"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0 5.8 5.2L9 23l-3-3L17.3 8.7"/><path d="M14.5 6.5 17 4a4.5 4.5 0 0 1 3.5 1.5L18 8"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4h12l-2 4 2 4H7v5"/><path d="M4 17h3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 1-1 1.7v1M12 17v.5"/></symbol>
+  <symbol id="i-inspect" viewBox="0 0 24 24"><path d="M13 19H3V5h18v6"/><circle cx="17" cy="16" r="3"/><path d="m19.2 18.2 2.3 2.3"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 52 44"><path d="M7 4H3v36h4M45 4h4v36h-4"/><path d="M11 22h4M15 16v12M19 19v6M23 12v20M27 18v8M31 20v4M35 8v28M39 22h2"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4l7 7-7 7v-4c-5 0-8 1.5-11 5 1-6 4-10 11-10.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M3 12h17M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M21 12H4M10 6l-6 6 6 6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z" fill="currentColor"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h8V4M8 20v-6h8v6"/></symbol>
+  <symbol id="i-preview" viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M3 20h5"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="9" rx="1" fill="currentColor"/><rect x="6" y="14" width="12" height="7" fill="var(--primary)"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><path d="M2 9h20M2 14.5h20M9 4v16"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M3 5h9M3 10h6M3 15h4"/><circle cx="14" cy="14" r="5"/><path d="m18 18 4 4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M14 2 7 14h5l-2 8 7-12h-5z" fill="currentColor"/></symbol>
+  <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+  <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M14 3l7 7-2 1-3 3 1 4-2 2-4-4-5 5M9 15l-4-4 2-2 4 1 3-3 1-2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-magnify" viewBox="0 0 24 24"><circle cx="14" cy="10" r="6"/><path d="M10 14l-7 7"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-tiles" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16M12 9h9M12 14h9"/><path d="m5 9 4 6M9 9l-4 6"/></symbol>
+  <symbol id="i-earth" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M4 21l2-5h12l2 5z"/></symbol>
+  <symbol id="i-drive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 4v5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M3 23c0-5 4-8.5 9-8.5s9 3.5 9 8.5z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="m3 6 9 7 9-7"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="3" width="12" height="14" rx="1"/><path d="M5 7v14h11"/></symbol>
+  <symbol id="i-face-sad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 16.5c2.5-2.5 5.5-2.5 8 0"/></symbol>
+  <symbol id="i-face-neutral" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8.5 15h7"/></symbol>
+  <symbol id="i-face-happy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 14c2.5 2.5 5.5 2.5 8 0"/></symbol>
+</svg>
+
+<div class="window">
+  <!-- SHELL: tab strip -->
+  <div class="tabstrip">
+    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div><div class="tab"><svg class="i"><use href="#i-search"/></svg><span class="t">Event Reports</span></div><div class="tab"><svg class="i"><use href="#i-search"/></svg><span class="t">Events</span></div><div class="tab is-active"><span class="t">EVT-1042 Warehouse Fire - Springfield</span><span class="close">✕</span></div>
+    <div class="titlebar"><svg class="i rec"><use href="#i-rec"/></svg><svg class="i user"><use href="#i-user"/></svg><span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span></div>
+  </div>
+
+  <!-- PAGE -->
+  <main class="page">
+    <div class="page-header has-nav">
+      <span class="page-title">Event: EVT-1042 Warehouse Fire - Springfield, Illinois</span>
+      <span class="page-actions"><svg class="i"><use href="#i-gear"/></svg><svg class="i fill"><use href="#i-share"/></svg></span>
+      <nav class="jump-nav"><a href="#" class="is-current">General</a><a href="#">Person resources</a><a href="#">Key dates</a><a href="#">Disaster surveys</a><a href="#">Disaster statistics</a><a href="#">Reports</a><a href="#">Budget</a><a href="#">Risk incident reports</a><a href="#">Projects</a><a href="#">Financial</a><a href="#">Accommodations</a><a href="#">Congregations and groups</a><a href="#">Documents</a></nav>
+    </div>
+    <div class="page-body stack">
+<div class="stack"><section class="collapsible is-open">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>General<span class="collapsible-tools"><svg class="i"><use href="#i-pin"/></svg></span></div>
+  <div class="collapsible-body"><div class="split halves"><div class="split-col"><section class="panel">
+  <div class="panel-header">Main</div>
+  <div class="panel-body"><div class="field-grid cols-4">
+  <div class="field span-2"><label>Name</label><div class="input is-focused">Warehouse Fire - Springfield, Illinois</div></div>
+  <div class="field span-2"><label>Local name</label><div class="input is-readonly">Warehouse Fire - Springfield, Illinois</div></div>
+  <div class="field span-2"><label>Event type</label><div class="input is-readonly">Accident</div></div>
+  <div class="field span-2"><label>Event series</label><div class="input is-readonly"></div></div>
+  <div class="field span-2"><label>Host branch</label><div class="input is-readonly">(USA) United States</div></div>
+  <div class="field span-2"><label>Geo location</label><div class="input is-readonly">(1) USA</div></div>
+  <div class="field span-2"><label>City</label><div class="input is-readonly">Springfield (IL-USA)</div></div>
+  <div class="range-fields"><div class="field"><label>Start date</label><div class="input is-readonly">3/2/2025</div></div><span class="dash"></span><div class="field"><label>End date</label><div class="input is-readonly">3/20/2025</div></div></div>
+  <div class="range-fields"><div class="field"><label>Closed date</label><div class="input is-readonly">4/1/2025</div></div><span class="dash"></span><div class="field"><label>Canceled date</label><div class="input is-readonly"></div></div></div>
+  <div class="span-2"></div>
+  <div class="range-fields"><div class="field"><label>Latitude</label><div class="input is-readonly">39.7817</div></div><span class="dash"></span><div class="field"><label>Longitude</label><div class="input is-readonly">-89.6501</div></div></div>
+</div></div>
+</section><section class="panel">
+  <div class="panel-header">Website details</div>
+  <div class="panel-body"><div class="field-grid cols-4">
+  <div class="field span-2"><label>Website display name<svg class="i label-icon trail"><use href="#i-help"/></svg></label><div class="input is-readonly"></div></div>
+  <div class="field span-2"><label>Linked event</label><div class="input is-readonly"></div></div>
+  <div class="field span-2"><label>Region</label><div class="input is-readonly"></div></div>
+  <div class="field span-2"><label>Time zone</label><div class="input is-readonly">(UTC-06:00) Central Time (US &amp; Canada)</div></div>
+  <div class="range-fields"><div class="field"><label>Application entry start date</label><div class="input is-readonly"></div></div><span class="dash"></span><div class="field"><label>Application entry end date</label><div class="input is-readonly"></div></div></div>
+  <div class="field is-readonly"><label>Published</label><span class="checkbox"></span></div>
+</div></div>
+</section></div><div class="splitter"></div><div class="split-col"><section class="panel">
+  <div class="panel-header">Condition of persons as of March 4, 2025</div>
+  <div class="panel-body"><div class="field-group"><div class="field-group-title">Persons assisted</div><div class="field-grid cols-3">
+  <div class="field"><label>Currently receiving assistance</label><div class="input num is-readonly">12<span class="secondary-value">(3)</span></div></div><div class="field"><label>Total unique persons assisted</label><div class="input num is-readonly">18<span class="secondary-value">(4)</span></div></div><div></div>
+  <div class="field"><label>Currently in temporary housing</label><div class="input num is-readonly">6<span class="secondary-value">(1)</span></div></div><div class="field"><label>Short-term</label><div class="input num is-readonly">4<span class="secondary-value">(1)</span></div></div><div class="field"><label>Transitional</label><div class="input num is-readonly">2<span class="secondary-value">(0)</span></div></div>
+</div></div>
+<div class="field-group"><div class="field-group-title">Households</div><div class="field-grid cols-3">
+  <div class="field"><label>Currently displaced</label><div class="input num is-readonly">5</div></div><div class="field"><label>Total displaced</label><div class="input num is-readonly">7<span class="secondary-value">(2)</span></div></div><div class="field"><label>Displaced from another country</label><div class="input num is-readonly">0<span class="secondary-value">(0)</span></div></div>
+  <div class="field"><label>Total injured</label><div class="input num is-readonly">1</div></div><div class="field"><label>Total deceased</label><div class="input num is-readonly">0</div></div>
+</div></div></div>
+</section><section class="panel">
+  <div class="panel-header">Event code and access code</div>
+  <div class="panel-body tight"><div class="field-grid cols-3"><div class="field"><label>Event code</label><div class="input is-readonly">K7Q2M9XR4T</div></div><div class="field"><label>Access code</label><div class="input is-readonly">418205</div></div></div></div>
+</section><section class="panel">
+  <div class="panel-header">Relief committees</div>
+  <div class="panel-body tight"><div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div><table class="data-grid embedded"><thead><tr><th>Name</th><th>Start date</th><th>End date</th><th class="fill"></th></tr></thead><tbody></tbody></table><div class="grid-footer">Records (0)</div></div>
+</section></div></div><section class="panel full-width">
+  <div class="panel-header">Relief cost summary<span class="panel-actions"><span class="btn-icon"><svg class="i"><use href="#i-export"/></svg></span></span></div>
+  <div class="panel-body tight"><div style="display:flex;justify-content:space-between;align-items:flex-end">
+  <div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div>
+  <div class="field"><label>Currency view</label><div class="option-group"><span class="option"><span class="radio"></span>Geo currency</span><span class="option"><span class="radio is-checked"></span>USD</span></div></div>
+</div><table class="data-grid embedded"><thead><tr><th>Service year</th><th>Budget amount (USD)</th><th>Actual cost amount (USD)</th><th>Remaining (USD)</th><th>!</th><th>Category</th><th class="fill"></th></tr></thead><tbody></tbody></table><div class="grid-footer">Records (0)</div></div>
+</section></div>
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Person resources</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Key dates</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Disaster surveys</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Disaster statistics</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Reports</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Budget</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Risk incident reports</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Projects</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Financial</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Accommodations</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Congregations and groups</div>
+  
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Documents</div>
+  
+</section></div>
+    </div>
+  </main>
+
+  <!-- SHELL: action bar -->
+  <footer class="action-bar">
+    <span class="spacer"></span><button class="btn primary" disabled><svg class="i"><use href="#i-drive"/></svg><span>JW Drive</span></button><button class="btn primary"><svg class="i"><use href="#i-earth"/></svg><span>Google Earth</span></button><button class="btn primary"><svg class="i"><use href="#i-earth"/></svg><span>Show on map</span></button><button class="btn primary"><svg class="i"><use href="#i-pencil"/></svg><span>Edit</span></button>
+  </footer>
+
+  <!-- SHELL: right rail (do not change) -->
+  <nav class="rail">
+    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="rail-count">1646</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-wrench"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-alert"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="rail-badge">9+</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-help"/></svg></div>
+    <div class="rail-item"><span class="rail-ai">AI<small>BETA ✦</small></span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-inspect"/></svg></div>
+    <div class="rail-logo"><svg class="i"><use href="#i-logo"/></svg></div>
+  </nav>
+</div>
+</body>
+</html>

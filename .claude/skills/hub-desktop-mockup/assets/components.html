@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hub components</title>
+<link rel="stylesheet" href="hub.css">
+<style>
+  /* catalogue-only styles */
+  body { background: var(--canvas); padding: 32px 40px 80px; }
+  h1 { font-size: 26px; font-weight: 400; color: var(--text-muted-strong); margin: 0 0 6px; }
+  h2 { font-size: 18px; font-weight: 600; color: var(--primary); margin: 40px 0 4px; }
+  .intro { color: var(--text-muted); margin: 0 0 16px; }
+  .specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 1840px; }
+  .spec { background: var(--surface); box-shadow: var(--shadow); padding: 14px 18px 18px; min-width: 0; }
+  .spec.wide { grid-column: span 2; }
+  .spec header { display: flex; gap: 12px; align-items: baseline; border-bottom: 1px solid var(--border-light); padding-bottom: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .spec header b { font-size: 14px; }
+  .spec code { font-size: 11px; color: var(--primary); background: var(--primary-tint); padding: 1px 6px; border-radius: 3px; }
+  .spec p { margin: -4px 0 12px; color: var(--text-muted); font-size: 12px; }
+  .demo { position: relative; background: var(--content-bg); padding: 16px; }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+  .icons { display: grid; grid-template-columns: repeat(14, 1fr); gap: 10px; }
+  .icons span { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #333; }
+  .icons .i { width: 22px; height: 22px; }
+  .icons small { font-size: 10px; color: var(--text-muted); }
+  ul { margin: 0; padding-left: 18px; line-height: 22px; }
+  a { color: var(--primary); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 4h18l-7 9v7l-4-2v-5z"/></symbol>
+  <symbol id="i-rec" viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="14" fill="currentColor" stroke="none"/><path d="M18 7v10M21 9v6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14.5"/><circle cx="16" cy="12.5" r="5"/><path d="M6.5 26.5c2-4.5 5.5-6.5 9.5-6.5s7.5 2 9.5 6.5"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5"/><path d="M11 5.5h10"/><rect x="3" y="10" width="5" height="5"/><path d="M11 12.5h10"/><path d="M3 19.5h5M11 19.5h10"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0 5.8 5.2L9 23l-3-3L17.3 8.7"/><path d="M14.5 6.5 17 4a4.5 4.5 0 0 1 3.5 1.5L18 8"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4h12l-2 4 2 4H7v5"/><path d="M4 17h3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 1-1 1.7v1M12 17v.5"/></symbol>
+  <symbol id="i-inspect" viewBox="0 0 24 24"><path d="M13 19H3V5h18v6"/><circle cx="17" cy="16" r="3"/><path d="m19.2 18.2 2.3 2.3"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 52 44"><path d="M7 4H3v36h4M45 4h4v36h-4"/><path d="M11 22h4M15 16v12M19 19v6M23 12v20M27 18v8M31 20v4M35 8v28M39 22h2"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4l7 7-7 7v-4c-5 0-8 1.5-11 5 1-6 4-10 11-10.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M3 12h17M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M21 12H4M10 6l-6 6 6 6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z" fill="currentColor"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h8V4M8 20v-6h8v6"/></symbol>
+  <symbol id="i-preview" viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M3 20h5"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="9" rx="1" fill="currentColor"/><rect x="6" y="14" width="12" height="7" fill="var(--primary)"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><path d="M2 9h20M2 14.5h20M9 4v16"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M3 5h9M3 10h6M3 15h4"/><circle cx="14" cy="14" r="5"/><path d="m18 18 4 4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M14 2 7 14h5l-2 8 7-12h-5z" fill="currentColor"/></symbol>
+  <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+  <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M14 3l7 7-2 1-3 3 1 4-2 2-4-4-5 5M9 15l-4-4 2-2 4 1 3-3 1-2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-magnify" viewBox="0 0 24 24"><circle cx="14" cy="10" r="6"/><path d="M10 14l-7 7"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-tiles" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16M12 9h9M12 14h9"/><path d="m5 9 4 6M9 9l-4 6"/></symbol>
+  <symbol id="i-earth" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M4 21l2-5h12l2 5z"/></symbol>
+  <symbol id="i-drive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 4v5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M3 23c0-5 4-8.5 9-8.5s9 3.5 9 8.5z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="m3 6 9 7 9-7"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="3" width="12" height="14" rx="1"/><path d="M5 7v14h11"/></symbol>
+  <symbol id="i-face-sad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 16.5c2.5-2.5 5.5-2.5 8 0"/></symbol>
+  <symbol id="i-face-neutral" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8.5 15h7"/></symbol>
+  <symbol id="i-face-happy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 14c2.5 2.5 5.5 2.5 8 0"/></symbol>
+</svg>
+<h1>Hub components</h1>
+<p class="intro">Atomic catalogue of every standard component and its states. Class names are listed on each card. Sample data is made up.</p>
+<section class="level"><h2>Atoms</h2><p class="intro">Smallest pieces. Never used alone on a screen.</p><div class="specs"><article class="spec wide">
+  <header><b>Icon</b><code>.i  .i.fill</code></header>
+  <p>Thin line icons from the sprite (#i-name).</p>
+  <div class="demo"><div class="icons"><span title="home"><svg class="i"><use href="#i-home"/></svg><small>home</small></span><span title="search"><svg class="i"><use href="#i-search"/></svg><small>search</small></span><span title="x"><svg class="i"><use href="#i-x"/></svg><small>x</small></span><span title="filter"><svg class="i"><use href="#i-filter"/></svg><small>filter</small></span><span title="info"><svg class="i"><use href="#i-info"/></svg><small>info</small></span><span title="help"><svg class="i"><use href="#i-help"/></svg><small>help</small></span><span title="dots"><svg class="i"><use href="#i-dots"/></svg><small>dots</small></span><span title="magnify"><svg class="i"><use href="#i-magnify"/></svg><small>magnify</small></span><span title="chev-right"><svg class="i"><use href="#i-chev-right"/></svg><small>chev-right</small></span><span title="chev-down"><svg class="i"><use href="#i-chev-down"/></svg><small>chev-down</small></span><span title="chev-up"><svg class="i"><use href="#i-chev-up"/></svg><small>chev-up</small></span><span title="gear"><svg class="i"><use href="#i-gear"/></svg><small>gear</small></span><span title="pin"><svg class="i"><use href="#i-pin"/></svg><small>pin</small></span><span title="share"><svg class="i"><use href="#i-share"/></svg><small>share</small></span><span title="arrow-right"><svg class="i"><use href="#i-arrow-right"/></svg><small>arrow-right</small></span><span title="arrow-left"><svg class="i"><use href="#i-arrow-left"/></svg><small>arrow-left</small></span><span title="pencil"><svg class="i"><use href="#i-pencil"/></svg><small>pencil</small></span><span title="save"><svg class="i"><use href="#i-save"/></svg><small>save</small></span><span title="plus"><svg class="i"><use href="#i-plus"/></svg><small>plus</small></span><span title="tick"><svg class="i"><use href="#i-tick"/></svg><small>tick</small></span><span title="bolt"><svg class="i"><use href="#i-bolt"/></svg><small>bolt</small></span><span title="grid"><svg class="i"><use href="#i-grid"/></svg><small>grid</small></span><span title="report"><svg class="i"><use href="#i-report"/></svg><small>report</small></span><span title="list"><svg class="i"><use href="#i-list"/></svg><small>list</small></span><span title="tiles"><svg class="i"><use href="#i-tiles"/></svg><small>tiles</small></span><span title="export"><svg class="i"><use href="#i-export"/></svg><small>export</small></span><span title="earth"><svg class="i"><use href="#i-earth"/></svg><small>earth</small></span><span title="drive"><svg class="i"><use href="#i-drive"/></svg><small>drive</small></span><span title="preview"><svg class="i"><use href="#i-preview"/></svg><small>preview</small></span><span title="print"><svg class="i"><use href="#i-print"/></svg><small>print</small></span><span title="copy"><svg class="i"><use href="#i-copy"/></svg><small>copy</small></span><span title="phone"><svg class="i"><use href="#i-phone"/></svg><small>phone</small></span><span title="mail"><svg class="i"><use href="#i-mail"/></svg><small>mail</small></span><span title="person"><svg class="i"><use href="#i-person"/></svg><small>person</small></span><span title="face-sad"><svg class="i"><use href="#i-face-sad"/></svg><small>face-sad</small></span><span title="face-neutral"><svg class="i"><use href="#i-face-neutral"/></svg><small>face-neutral</small></span><span title="face-happy"><svg class="i"><use href="#i-face-happy"/></svg><small>face-happy</small></span><span title="tasks"><svg class="i"><use href="#i-tasks"/></svg><small>tasks</small></span><span title="wrench"><svg class="i"><use href="#i-wrench"/></svg><small>wrench</small></span><span title="alert"><svg class="i"><use href="#i-alert"/></svg><small>alert</small></span><span title="flag"><svg class="i"><use href="#i-flag"/></svg><small>flag</small></span><span title="inspect"><svg class="i"><use href="#i-inspect"/></svg><small>inspect</small></span></div></div>
+</article><article class="spec">
+  <header><b>Button</b><code>.btn.primary  .btn.outline  [disabled]  &lt;u&gt;</code></header>
+  <p>Primary = right side of the action bar. Outline = left side.</p>
+  <div class="demo"><div class="row"><button class="btn primary"><svg class="i"><use href="#i-pencil"/></svg><span>Edit</span></button><button class="btn primary" disabled><svg class="i"><use href="#i-bolt"/></svg><span>Update</span></button><button class="btn outline"><svg class="i"><use href="#i-arrow-right"/></svg><span><u>O</u>pen</span></button><button class="btn outline" disabled><svg class="i"><use href="#i-x"/></svg><span>Clear</span></button></div></div>
+</article><article class="spec">
+  <header><b>Icon button / square button</b><code>.btn-icon  .btn-square(.wide|.sm)</code></header>
+  
+  <div class="demo"><div class="row"><span class="btn-icon"><svg class="i"><use href="#i-export"/></svg></span><span class="btn-icon"><svg class="i"><use href="#i-copy"/></svg></span><span class="btn-square wide"><svg class="i"><use href="#i-magnify"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-x"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-dots"/></svg></span><span class="btn-square sm"><svg class="i"><use href="#i-dots"/></svg></span></div></div>
+</article><article class="spec">
+  <header><b>Text input</b><code>.input  .is-readonly  .is-focused  .is-invalid  .num  .is-placeholder</code></header>
+  
+  <div class="demo"><div class="field-grid"><div class="input">Editable value</div><div class="input is-readonly">Read-only value</div><div class="input is-focused">Focused</div><div class="input is-invalid"></div><div class="input num is-readonly">12<span class="secondary-value">(3)</span></div><div class="input is-placeholder">Placeholder</div></div></div>
+</article><article class="spec">
+  <header><b>Select</b><code>.select &gt; .caret</code></header>
+  
+  <div class="demo"><div class="field-grid"><div class="select">Option<i class="caret"></i></div><div class="select is-readonly">Option<i class="caret"></i></div></div></div>
+</article><article class="spec">
+  <header><b>Checkbox / radio</b><code>.checkbox  .radio  .is-checked  (inside .is-readonly)</code></header>
+  <p>Read-only: faded boxes; a checked checkbox shows only the tick.</p>
+  <div class="demo"><div class="row"><span class="checkbox"></span><span class="checkbox is-checked"></span><span class="radio"></span><span class="radio is-checked"></span></div><div class="row is-readonly"><span class="checkbox"></span><span class="checkbox is-checked"></span><span class="radio"></span><span class="radio is-checked"></span></div></div>
+</article><article class="spec">
+  <header><b>Label parts</b><code>.is-required  .label-icon.lead/.trail  .error-mark</code></header>
+  <p>Required = bold + dot. Invalid = ▲ after the dot.</p>
+  <div class="demo"><div class="field-grid"><div class="field"><label class="is-required">Required</label><div class="input"></div></div><div class="field"><label><svg class="i label-icon lead"><use href="#i-info"/></svg>Info icon</label><div class="input"></div></div><div class="field"><label>Help icon<svg class="i label-icon trail"><use href="#i-help"/></svg></label><div class="input"></div></div><div class="field"><label class="is-required">Invalid<span class="error-mark"></span></label><div class="input is-invalid"></div></div></div></div>
+</article><article class="spec">
+  <header><b>Tag / pill / status icon</b><code>.tag  .pill(.muted)  .status-icon.ok/.bad(.lg)</code></header>
+  
+  <div class="demo"><div class="row"><span class="tag">Female</span><span class="tag">Married</span><span class="pill">Active</span><span class="pill muted">Inactive</span><span class="status-icon ok">✓</span><span class="status-icon bad">!</span><span class="status-icon lg bad">!</span></div></div>
+</article><article class="spec">
+  <header><b>Avatar</b><code>.avatar(.sm)</code></header>
+  
+  <div class="demo"><div class="row"><div class="avatar"><svg class="i"><use href="#i-person"/></svg></div><div class="avatar sm"><svg class="i"><use href="#i-person"/></svg></div></div></div>
+</article><article class="spec">
+  <header><b>Tooltip / error tip</b><code>.tooltip(.has-arrow)  .error-tip</code></header>
+  
+  <div class="demo"><div style="position:relative;height:70px"><span class="tooltip" style="left:0;top:0">Full text of a truncated label</span><span class="tooltip has-arrow" style="left:0;top:36px">Tab title</span><span class="error-tip" style="left:260px;top:0">Event is required.</span></div></div>
+</article><article class="spec">
+  <header><b>Progress</b><code>.progress &gt; .progress-fill + .progress-text</code></header>
+  
+  <div class="demo"><div class="progress"><span class="progress-fill" style="width:33%"></span><span class="progress-text"><span>33%</span><span>2/6</span></span></div></div>
+</article><article class="spec">
+  <header><b>Splitter / dash / link / hint</b><code>.splitter  .dash  .link  .hint</code></header>
+  
+  <div class="demo"><div class="row"><div class="splitter" style="width:14px;height:60px"></div><span class="dash"></span><a class="link" href="#">See more</a><span class="hint">Ctrl+T</span></div></div>
+</article></div></section>
+<section class="level"><h2>Molecules</h2><p class="intro">Small groups of atoms with one job.</p><div class="specs"><article class="spec">
+  <header><b>Field</b><code>.field &gt; label + control  (.span-2/.span-3)</code></header>
+  
+  <div class="demo"><div class="field-grid"><div class="field"><label class="is-required">Name</label><div class="input">Main Kitchen</div></div><div class="field"><label>Type</label><div class="select">Production<i class="caret"></i></div></div></div></div>
+</article><article class="spec">
+  <header><b>Range</b><code>.range (one field)  .range-fields (two fields)</code></header>
+  
+  <div class="demo"><div class="field-grid"><div class="field"><label>Date</label><div class="range"><div class="input">1/9/2026</div><span class="dash"></span><div class="input">2/1/2026</div></div></div><div></div><div class="range-fields"><div class="field"><label>Start date</label><div class="input">3/2/2025</div></div><span class="dash"></span><div class="field"><label>End date</label><div class="input">3/20/2025</div></div></div></div></div>
+</article><article class="spec">
+  <header><b>Option group</b><code>.option-group(.vertical) &gt; .option</code></header>
+  
+  <div class="demo"><div class="field"><label>Tri-state filter</label><div class="option-group"><span class="option"><span class="radio is-checked"></span>All</span><span class="option"><span class="radio"></span>Yes</span><span class="option"><span class="radio"></span>No</span></div></div><br><div class="field"><label>Vertical</label><div class="option-group vertical"><span class="option"><span class="radio"></span>After 15 days</span><span class="option"><span class="radio is-checked"></span>After 30 days</span><span class="option"><span class="radio"></span>Never</span></div></div></div>
+</article><article class="spec">
+  <header><b>Checkbox tree</b><code>.check-tree &gt; .checkbox + .option-group.vertical</code></header>
+  
+  <div class="demo"><div class="check-tree"><span class="checkbox is-checked"></span><div class="option-group vertical"><span class="option"><span class="checkbox is-checked"></span>I receive a request</span><span class="option"><span class="checkbox"></span>My request is accepted</span><span class="option"><span class="checkbox"></span>My request is declined</span></div></div></div>
+</article><article class="spec wide">
+  <header><b>Lookup (inline search)</b><code>.lookup &gt; .input + .lookup-adorn (+ .lookup-popup)</code></header>
+  <p>Typing (or *) opens a popup grid; selected row is solid green. `…` opens the full search.</p>
+  <div class="demo" style="min-height:370px"><div style="width:560px"><div class="field"><label class="is-required"><svg class="i label-icon lead"><use href="#i-info"/></svg>Event<span class="error-mark"></span></label><div class="lookup"><div class="input is-invalid">*</div><span class="lookup-adorn"><svg class="i"><use href="#i-x"/></svg><svg class="i"><use href="#i-info"/></svg><span class="btn-square sm"><svg class="i"><use href="#i-dots"/></svg></span></span><div class="error-tip">Event is required.</div><div class="lookup-popup"><table><thead><tr><th>Number</th><th>Local name</th><th>Type</th><th>Host branch</th><th>Start date</th><th>End date</th></tr></thead><tbody><tr class="is-selected"><td>EVT-0336</td><td>VP-2028</td><td>Volunteer Program</td><td>(USA) United States</td><td>9/1/2028</td><td>10/25/2029</td></tr><tr><td>EVT-0337</td><td>VP-2028</td><td>Volunteer Program</td><td>(USA) United States</td><td>5/1/2028</td><td>5/7/2028</td></tr><tr class="filler"><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div></div></div></div>
+</article><article class="spec">
+  <header><b>Chip</b><code>.chip &gt; .chip-value(.has-caret) + .chip-remove   .chip.is-empty</code></header>
+  
+  <div class="demo"><div class="row"><span class="chip">Canceled<span class="chip-value has-caret">No</span><span class="chip-remove"><svg class="i"><use href="#i-x"/></svg></span></span><span class="chip">Event<span class="chip-value">EVT-0336</span><span class="chip-remove"><svg class="i"><use href="#i-x"/></svg></span></span><span class="chip is-empty">Criteria not set</span></div></div>
+</article><article class="spec wide">
+  <header><b>Search input / quick search</b><code>.search-input  .quick-search</code></header>
+  
+  <div class="demo"><div class="search-input"><span class="value is-placeholder">Search events</span><svg class="i adorn"><use href="#i-x"/></svg><svg class="i adorn"><use href="#i-info"/></svg><span class="btn-square wide"><svg class="i"><use href="#i-magnify"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-x"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-dots"/></svg></span></div><br><div class="quick-search"><span class="value">kitche</span><svg class="i"><use href="#i-x"/></svg><svg class="i"><use href="#i-filter"/></svg></div></div>
+</article><article class="spec">
+  <header><b>Grid helpers</b><code>.filter-link  .grid-footer  .view-toggle</code></header>
+  
+  <div class="demo"><div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div><div class="grid-footer">Records (0)</div><br><span class="view-toggle"><svg class="i is-active"><use href="#i-list"/></svg><svg class="i"><use href="#i-tiles"/></svg></span></div>
+</article><article class="spec">
+  <header><b>Key/value</b><code>.kv-list (dl)  .kv-pairs &gt; .kv-pair</code></header>
+  
+  <div class="demo"><dl class="kv-list"><dt>Created</dt><dd>3/2/2025</dd><dt>Owner</dt><dd>Rivera, Ana</dd></dl><br><div class="kv-pairs"><div class="kv-pair"><span>Number</span><span>1042</span></div><div class="kv-pair"><span>Host branch</span><span>(USA) United States</span></div></div></div>
+</article><article class="spec">
+  <header><b>Total list</b><code>.total-list &gt; .n + .rule</code></header>
+  
+  <div class="demo"><div class="total-list"><span>Base</span><span class="n">3,120</span><span>Adjustments</span><span class="n">35</span><span class="rule"></span><span>Total</span><span class="n">3,155</span></div></div>
+</article><article class="spec">
+  <header><b>Stat / stat text</b><code>.stat &gt; .stat-value(small) + .stat-label   .stat-text</code></header>
+  
+  <div class="demo"><div class="row"><div class="stat"><span class="stat-value">41<small>.20</small></span><span class="stat-label">Age</span></div><div class="stat"><span class="stat-value">4<small></small></span><span class="stat-label">Applications</span></div><div class="stat-text"><div class="stat-text-label">Citizenship</div><div class="stat-text-value">United States (Citizen)</div></div></div></div>
+</article><article class="spec">
+  <header><b>Contact item</b><code>.contact-item &gt; .i + .l/.v (+ .link)</code></header>
+  
+  <div class="demo"><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px"><div class="contact-item"><svg class="i"><use href="#i-phone"/></svg><span class="l">Cell phone</span><span class="v">+1 555-0142</span><a class="link" href="#">See more</a></div><div class="contact-item"><svg class="i"><use href="#i-mail"/></svg><span class="l">E-mail address</span><span class="v">ana.rivera@example.org</span></div></div></div>
+</article><article class="spec">
+  <header><b>List tile</b><code>.list-tile(.is-active)</code></header>
+  
+  <div class="demo"><div class="list-tile is-active"><div class="list-tile-title">Week 1 (9/1/2028 - 9/7/2028)</div><div class="list-tile-text">Total number selected for the week: 2 (0 minor)</div></div><br><div class="list-tile"><div class="list-tile-title">Week 2 (9/8/2028 - 9/14/2028)</div><div class="list-tile-text">Total number selected for the week: 0 (0 minor)</div></div></div>
+</article><article class="spec">
+  <header><b>Menu item</b><code>.menu-item(.is-selected) &gt; .i + .t</code></header>
+  <p>Icon = kind of form: report, grid, ⚡ process, none.</p>
+  <div class="demo"><div class="menu-item is-selected"><svg class="i"><use href="#i-report"/></svg><span class="t">Report form</span></div><div class="menu-item"><svg class="i"><use href="#i-grid"/></svg><span class="t">List form</span></div><div class="menu-item"><svg class="i"><use href="#i-bolt"/></svg><span class="t">Process form</span></div><div class="menu-item"><svg class="i is-blank"><use href="#i-grid"/></svg><span class="t">Plain form</span></div></div>
+</article><article class="spec">
+  <header><b>Tab pills</b><code>.tab-pills &gt; .tab-pill(.is-active) + .pin</code></header>
+  
+  <div class="demo"><div class="tab-pills"><span class="tab-pill is-active">General</span><span class="tab-pill">Advanced</span><svg class="i pin"><use href="#i-pin"/></svg></div></div>
+</article><article class="spec">
+  <header><b>Option preview</b><code>.option-preview &gt; .accent + .note</code></header>
+  
+  <div class="demo"><div class="option-preview"><span class="accent"></span><span class="note"></span></div></div>
+</article></div></section>
+<section class="level"><h2>Organisms</h2><p class="intro">Self-contained blocks that make up a page.</p><div class="specs"><article class="spec wide">
+  <header><b>Panel</b><code>.panel &gt; .panel-header(.accent) (+ .panel-actions) + .panel-body   .panel.headless</code></header>
+  <p>Grey is the default; green only for the main criteria panel of a side-by-side layout.</p>
+  <div class="demo"><div class="panel-grid" style="padding:0"><section class="panel">
+  <div class="panel-header">Default (grey)<span class="panel-actions"><span class="btn-icon"><svg class="i"><use href="#i-export"/></svg></span></span></div>
+  <div class="panel-body"><div class="field"><label>Name</label><div class="input is-readonly">Value</div></div></div>
+</section><section class="panel">
+  <div class="panel-header accent">Accent (green)</div>
+  <div class="panel-body"><div class="field"><label>Name</label><div class="input">Value</div></div></div>
+</section></div></div>
+</article><article class="spec wide">
+  <header><b>Field group</b><code>.field-group &gt; .field-group-title + .field-grid</code></header>
+  <p>Dense numeric breakdowns: bold title, indented fields, optional secondary value (n).</p>
+  <div class="demo"><div class="field-group"><div class="field-group-title">Persons assisted</div><div class="field-grid cols-3">
+  <div class="field"><label>Currently receiving assistance</label><div class="input num is-readonly">12<span class="secondary-value">(3)</span></div></div><div class="field"><label>Total unique persons assisted</label><div class="input num is-readonly">18<span class="secondary-value">(4)</span></div></div><div></div>
+  <div class="field"><label>Currently in temporary housing</label><div class="input num is-readonly">6<span class="secondary-value">(1)</span></div></div><div class="field"><label>Short-term</label><div class="input num is-readonly">4<span class="secondary-value">(1)</span></div></div><div class="field"><label>Transitional</label><div class="input num is-readonly">2<span class="secondary-value">(0)</span></div></div>
+</div></div>
+<div class="field-group"><div class="field-group-title">Households</div><div class="field-grid cols-3">
+  <div class="field"><label>Currently displaced</label><div class="input num is-readonly">5</div></div><div class="field"><label>Total displaced</label><div class="input num is-readonly">7<span class="secondary-value">(2)</span></div></div><div class="field"><label>Displaced from another country</label><div class="input num is-readonly">0<span class="secondary-value">(0)</span></div></div>
+  <div class="field"><label>Total injured</label><div class="input num is-readonly">1</div></div><div class="field"><label>Total deceased</label><div class="input num is-readonly">0</div></div>
+</div></div></div>
+</article><article class="spec wide">
+  <header><b>Collapsible</b><code>.collapsible(.is-open) &gt; .collapsible-bar + .collapsible-body</code></header>
+  
+  <div class="demo"><div class="stack"><section class="collapsible is-open">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Open section<span class="collapsible-tools"><svg class="i"><use href="#i-pin"/></svg></span></div>
+  <div class="collapsible-body"><div style="height:40px"></div></div>
+</section><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Closed section</div>
+  
+</section></div></div>
+</article><article class="spec wide">
+  <header><b>Data grid</b><code>table.data-grid (.embedded .compact .striped)  tr.is-selected/.is-focused</code></header>
+  
+  <div class="demo"><div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div><table class="data-grid embedded striped"><thead><tr><th><span class="checkbox"></span></th><th>Number</th><th>Code</th><th>Description</th><th class="fill"></th></tr></thead><tbody><tr><td></td><td>1</td><td>Sub</td><td>Submitted</td><td class="fill"></td></tr><tr><td></td><td>2</td><td>Appr</td><td>Approved</td><td class="fill"></td></tr><tr><td></td><td>3</td><td>Rej</td><td>Not approved</td><td class="fill"></td></tr><tr><td></td><td>4</td><td>Can</td><td>Canceled</td><td class="fill"></td></tr></tbody></table><div class="grid-footer">Records (4)</div><br><div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div><table class="data-grid embedded"><thead><tr><th>Name</th><th>Start date</th><th>End date</th><th class="fill"></th></tr></thead><tbody></tbody></table><div class="grid-footer">Records (0)</div></div>
+</article><article class="spec wide">
+  <header><b>Chip bar + filter editor</b><code>.chip-bar &gt; .chip-bar-toggle + .chip…   .filter-editor</code></header>
+  
+  <div class="demo"><div class="chip-bar tall"><span class="chip-bar-toggle"><svg class="i"><use href="#i-chev-right"/></svg></span><span class="chip is-empty">Criteria not set</span><span class="spacer"></span><span class="btn-square wide"><svg class="i"><use href="#i-magnify"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-x"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-dots"/></svg></span></div><br><div class="chip-bar tall"><span class="chip-bar-toggle"><svg class="i"><use href="#i-chev-down"/></svg></span><span class="chip">Event series<span class="chip-value">2028 Volunteer Series</span><span class="chip-remove"><svg class="i"><use href="#i-x"/></svg></span></span><span class="spacer"></span><span class="btn-square wide"><svg class="i"><use href="#i-magnify"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-x"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-dots"/></svg></span></div><div class="filter-editor"><div class="tab-pills"><span class="tab-pill is-active">General</span><svg class="i pin"><use href="#i-pin"/></svg></div><div class="field-grid"><div class="field"><label class="is-required">Event series</label><div class="lookup"><div class="input">2028 Volunteer Series</div><span class="lookup-adorn"><svg class="i"><use href="#i-x"/></svg><svg class="i"><use href="#i-info"/></svg><span class="btn-square sm"><svg class="i"><use href="#i-dots"/></svg></span></span></div></div><div class="field"><label>Has minor</label><div class="option-group"><span class="option"><span class="radio is-checked"></span>All</span><span class="option"><span class="radio"></span>Yes</span><span class="option"><span class="radio"></span>No</span></div></div></div></div></div>
+</article><article class="spec">
+  <header><b>Info card</b><code>.info-card(.is-selected) &gt; .info-card-header + .info-card-body</code></header>
+  
+  <div class="demo"><div style="width:430px"><article class="info-card is-selected">
+  <div class="info-card-header"><span class="t">EVT-1042 Warehouse Fire - Springfield, Illinois</span><span class="checkbox"></span></div>
+  <div class="info-card-body"><div class="kv-pairs"><div class="kv-pair"><span>Number</span><span>1042</span></div><div class="kv-pair"><span>Host branch</span><span>(USA) United States</span></div><div class="kv-pair span-2"><span>Type</span><span>Accident</span></div><div class="kv-pair"><span>Start date</span><span>3/2/2025</span></div><div class="kv-pair"><span>End date</span><span>3/20/2025</span></div></div></div>
+</article></div></div>
+</article><article class="spec">
+  <header><b>Menu card</b><code>.menu-card &gt; .menu-card-header + .menu-card-body</code></header>
+  
+  <div class="demo"><section class="menu-card" style="height:140px"><div class="menu-card-header">Event Management</div><div class="menu-card-body"><div class="menu-item"><svg class="i"><use href="#i-bolt"/></svg><span class="t">Volunteer Program Congregation Assignment</span></div><div class="menu-item"><svg class="i is-blank"><use href="#i-grid"/></svg><span class="t">Volunteer Program Selection</span></div></div></section></div>
+</article><article class="spec wide">
+  <header><b>Identity header</b><code>.avatar + .identity &gt; .identity-name + .identity-sub + .identity-stats</code></header>
+  
+  <div class="demo"><section class="panel headless"><div class="panel-body"><div class="avatar"><svg class="i"><use href="#i-person"/></svg></div><div class="identity"><div class="identity-name">Rivera, Ana (100245)<span class="tag">Female</span><span class="tag">Married</span></div><div class="identity-sub">(FT) Full-time Staff</div><div class="identity-sub">(PC) Part-time Commuter - Springfield</div><div class="identity-stats"><div class="stat"><span class="stat-value">41<small>.20</small></span><span class="stat-label">Age</span></div><div class="stat"><span class="stat-value">22<small>.05</small></span><span class="stat-label">Member since</span></div><div class="stat"><span class="stat-value">12<small>.50</small></span><span class="stat-label">Full-time service</span></div><div class="stat"><span class="stat-value">4<small></small></span><span class="stat-label">Applications</span></div><div class="stat-text"><div class="stat-text-label">Citizenship</div><div class="stat-text-value">United States (Citizen)</div></div></div></div></div></section></div>
+</article><article class="spec wide">
+  <header><b>Stat equation</b><code>.stat-equation &gt; .stat-breakdown(.plain) + .stat-operator</code></header>
+  
+  <div class="demo"><div class="stat-equation"><div class="stat-breakdown"><div class="l">Total</div><div class="v">3,155</div><div class="rows"><span>Branch</span><span class="n">2,210</span><span>Head office</span><span class="n">885</span></div></div><span class="stat-operator">-</span><div class="stat-breakdown"><div class="l">Used</div><div class="v">3,402</div><div class="rows"><span>Branch</span><span class="n">2,390</span><span>Head office</span><span class="n">954</span></div></div><span class="stat-operator">=</span><div class="stat-breakdown"><div class="l">Available</div><div class="v">-256<span class="status-icon lg bad">!</span></div><div class="rows"><span>Branch</span><span class="n">-185 <span class="status-icon bad">!</span></span><span>Head office</span><span class="n">1 <span class="status-icon ok">✓</span></span></div></div><span class="stat-operator"></span><div class="stat-breakdown plain"><div class="l">Pending</div><div class="v">41</div><div class="rows"><span>Branch</span><span class="n">27</span><span>Head office</span><span class="n">12</span></div></div></div></div>
+</article><article class="spec wide">
+  <header><b>Contact card</b><code>.contact-head + .contact-columns &gt; .contact-item</code></header>
+  
+  <div class="demo"><div class="contact-head"><div class="avatar sm"><svg class="i"><use href="#i-person"/></svg></div><div><div class="n">Rivera, Ana</div><div class="s">(FT) Full-time Staff</div></div></div><div class="contact-columns"><div class="contact-item"><svg class="i"><use href="#i-phone"/></svg><span class="l">Cell phone</span><span class="v">+1 555-0142</span><a class="link" href="#">See more</a></div><div class="contact-item"><svg class="i"><use href="#i-mail"/></svg><span class="l">E-mail address</span><span class="v">ana.rivera@example.org</span></div><div class="contact-item"><svg class="i"><use href="#i-home"/></svg><span class="l">Formatted address</span><span class="v">1200 Oak Ave<br>Springfield IL 62701</span></div></div></div>
+</article><article class="spec wide">
+  <header><b>Grid toolbar</b><code>.grid-toolbar &gt; .context + .field…</code></header>
+  
+  <div class="demo"><div class="grid-toolbar"><span class="context">EVT-0336 VP-2028</span><div class="field"><label><svg class="i label-icon lead"><use href="#i-info"/></svg>Week</label><div class="select"><i class="caret"></i></div></div><div class="field"><label>Status</label><div class="select"><i class="caret"></i></div></div></div></div>
+</article><article class="spec">
+  <header><b>Jump nav</b><code>.jump-nav(.wrap) &gt; a(.is-current)</code></header>
+  
+  <div class="demo"><nav class="jump-nav"><a href="#" class="is-current">General</a><a href="#">Key dates</a><a href="#">Budget</a><a href="#">Documents</a></nav></div>
+</article><article class="spec">
+  <header><b>Feedback</b><code>.feedback</code></header>
+  
+  <div class="demo"><div style="position:relative;height:30px"><span class="feedback"><svg class="i"><use href="#i-face-sad"/></svg><svg class="i"><use href="#i-face-neutral"/></svg><svg class="i"><use href="#i-face-happy"/></svg></span></div></div>
+</article></div></section>
+<section class="level"><h2>Layouts</h2><p class="intro">Example pages composed from the organisms above, inside the shell (tab strip, page header, page body, action bar, rail).</p><div class="spec"><ul><li><a href="layout-menu-cards.html">Menu cards</a> — quick search header + wrapping menu cards</li><li><a href="layout-panels-side-by-side.html">Panels side by side</a> — title header + two panels (accent + default)</li><li><a href="layout-search-cards.html">Search → cards</a> — search header + collapsibles with info cards</li><li><a href="layout-search-grid.html">Search → grid</a> — search header + collapsible with data grid</li><li><a href="layout-collapsible-sections.html">Collapsible sections</a> — nav header + stack of collapsibles; split halves of panels</li><li><a href="layout-collapsible-sections-stats.html">Collapsible sections + stats</a> — identity header, contact card and stat equation inside collapsibles</li><li><a href="layout-filter-sidebar.html">Filter bar + sidebar</a> — chip bar + filter editor header; split sidebar with tile list, progress and grid</li><li><a href="layout-single-grid.html">Single grid</a> — title header + one striped grid sheet</li></ul></div></section>
+</body>
+</html>

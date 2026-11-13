@@ -1,58 +1,48 @@
 ---
 name: hub-desktop-mockup
-description: Design HTML and Figma mockups for the organization's .NET WPF desktop application ("Hub": CORE USA home tab, dark-green right rail, form-card launcher, tabbed forms). Use whenever the user asks to mock up, sketch, prototype, redesign or add a screen, form, search, report, process form, section, panel, dialog, grid or field to the desktop app (especially the Event Search / Event Form and event process forms), or asks for a Figma version of one. Produces static HTML that matches the real app's chrome, controls and states, plus guidance for moving it into Figma.
+description: Design HTML and Figma mockups for the organization's .NET WPF desktop application ("Hub": CORE USA home tab, dark-green right rail, menu cards, tabbed pages). Use whenever the user asks to mock up, sketch, prototype, redesign or add a screen, form, search, section, panel, dialog, grid, field or component to the desktop app (especially the Event module), or asks for a Figma version of one. Builds static HTML from an atomic component library (atoms → molecules → organisms → layouts) that matches the real app, plus guidance for moving it into Figma.
 ---
 
 # Hub Desktop Mockup
 
-Mockups for a WPF desktop app. The output is **static HTML (and optionally Figma)**, never XAML or production code. A mockup should look like a screenshot of the real app, so reviewers judge the *content* of a screen, not an unfamiliar style.
+Mockups for a WPF desktop app. The output is **static HTML (and optionally Figma)**, never XAML or production code. A mockup should look like a screenshot of the real app, so reviewers judge the *content*, not an unfamiliar style.
 
-## Before you start
+The library is **atomic**: atoms → molecules → organisms, placed with layout primitives inside the shell. Components are named for what they are, never for a screen ("panel", "stat equation", "lookup", not "report panel" or "overview card").
 
-Read these (short) files:
+## Read first
 
-1. `references/screen-patterns.md`: the six screen kinds and every standard control with its states. **Always read this.**
-2. `references/shell-layout.md`: the window chrome (tab strip, header panel, content, footer action bar, right rail).
-3. `references/design-tokens.md`: colors, type, spacing. Never invent colors.
-4. `references/event-form.md`: when the request involves events (the team's main module).
-5. `references/figma.md`: only when the user wants a Figma version.
+1. `references/components.md`: every atom, molecule, organism and layout primitive, with classes and naming rules. **Always read.**
+2. `references/layouts.md`: how organisms combine into pages, plus the example layouts.
+3. `references/shell.md`: tab strip, page header variants, page body, action bar, rail.
+4. `references/tokens.md`: colors, type, spacing. Never invent colors.
+5. `references/event-form.md`: when the request involves the Event module.
+6. `references/figma.md`: only when a Figma version is wanted.
+
+`assets/components.html` is the visual catalogue: every component with its states and class names. Open it whenever you're unsure how something looks.
 
 ## Workflow
 
-1. **Classify the request.** Which screen kind is it: Home, Report, Search, Record form, Process form or Reference form (simple code list)? Which section is open, and which state (read / edit / invalid / empty / loaded)? What goes in the footer? If the user only names a form, infer plausible sections and fields from the name and list your assumptions.
-2. **Start from a template** in `assets/`, never from a blank file:
-
-   | Need | Template |
-   |---|---|
-   | Launcher | `template-home.html` |
-   | Report | `template-report.html` |
-   | Search results as cards / grid | `template-search-cards.html` / `template-search-grid.html` |
-   | Record form (sections, columns, sub-groups, embedded grids) | `template-record.html` |
-   | Process / action form | `template-process.html` |
-   | Simple code list (statuses, types…) | `template-reference.html` |
-   | Custom Overview: profile with KPI tiles / formula KPIs with status icons | `template-overview-profile.html` / `template-overview-kpi.html` |
-   | Any single control or state | copy from `template-components.html` |
-
-   Copy the template **and** `hub.css` into the output folder (default `mockups/<screen-name>/`). Keep the icon sprite at the top of the file; it is used everywhere.
-3. **Fill in content** with the classes in `hub.css` only. If something new is needed, add a small `<style>` block using the CSS variables, and tell the user so it can be promoted into `hub.css`.
-4. **Use made-up but realistic data.** Never copy real names, codes or records from screenshots the user shares. Screenshots show how components work, not content to reuse.
-5. **Show states deliberately.** Required = bold label + `•`. Invalid = red border + `▲` after the dot + red tip. Read mode vs edit mode. Disabled buttons. Empty grids show `Records (0)`. For several states, make one HTML file per state (`<screen>--<state>.html`), never one crowded screen.
-6. **Verify by rendering.** Screenshot at 1920×1030 with Playwright (Chromium is preinstalled; `require('playwright')` works) and look at it. Check that nothing overflows or wraps unexpectedly, the rail and footer are intact, and text isn't clipped.
-7. **Hand off** the file paths, the screenshot(s), and a short list of assumptions/open questions.
+1. **Decompose the request.** List the organisms the screen needs (e.g. chip bar + filter editor, split sidebar, tile list, panel with embedded grid), then the page-header variant and the action-bar buttons. Name the states to show (read / edit / invalid / empty / selected / disabled). If the user only names a form, infer plausible content and list your assumptions.
+2. **Start from the closest `assets/layout-*.html`** (they are named by structure, see `layouts.md`). Copy it **and** `hub.css` into `mockups/<feature>/`. Keep the icon sprite at the top of the page.
+3. **Compose with existing classes only.** Swap organisms in and out, and copy markup from `components.html`. If something is genuinely new, build it from existing atoms and molecules. Give it a neutral, structural name, put its style in a `<style>` block using the CSS variables, and tell the user so it can be added to `hub.css`, `components.md` and `components.html`.
+4. **Use made-up but realistic data.** Never copy real names, codes or records from screenshots. Screenshots show how components look and behave, not content to reuse.
+5. **Show states deliberately**, one HTML file per state (`<feature>--<state>.html`) when several are asked for.
+6. **Verify by rendering.** Screenshot at 1920×1030 with Playwright (Chromium is preinstalled; `require('playwright')` works) and look at it. Check that nothing overflows or wraps unexpectedly, the shell is intact, and text isn't clipped.
+7. **Hand off** the file paths, screenshot(s), the list of organisms used, and any assumptions or new components.
 
 ## Hard rules
 
-- Canvas = the app window, **1920×1030** (maximized on 1080p). Not responsive. Change it only if asked.
-- Tab strip, right rail and footer action bar are always present and unchanged unless the request is about them. The **Home tab (`CORE USA`) is always first**; opened forms are tabs after it.
-- Footer: primary filled green buttons on the **right** (Edit, Save, New, Update, Print). Secondary/navigation actions as outlined buttons on the **left** (Open, Select, Export, Clear, Cancel). Every button has an icon.
-- Group panel headers: **green** only for report criteria; **grey** in record and process forms.
-- Record-form sections are **collapsible bars** with matching **jump links** in the header. Sections contain **two columns of group panels with a splitter**.
-- Custom, dashboard-like layouts are allowed **only in an Overview section** and only with the documented overview blocks. Every other section uses the standard group panels.
-- Lookups are **inline search** fields (× ⓘ green `…`) that open a **popup grid**, never a plain dropdown.
-- Font Segoe UI; dense sizes (12–13px content). Don't "modernize" spacing or sizes.
-- Thin line icons; reuse the sprite symbols and add new ones in the same style.
-- One HTML file + `hub.css`. No build step, no framework, no external JS or fonts, so it opens offline.
+- Canvas 1920×1030 (maximized on 1080p). Not responsive.
+- Shell always present: tab strip with `CORE USA` first, page header, action bar, rail. The rail never changes.
+- Action bar: outline buttons left, primary buttons right, each with an icon.
+- Panel headers are grey by default; `.accent` (green) only for the single primary panel of a side-by-side layout.
+- Lookups are always inline search with a popup grid, never plain dropdowns.
+- Required = bold label + `•`. Invalid = red border + `▲` after the dot + red error tip.
+- Headless panels with identity header / stats / stat equation are for at-a-glance summaries only. Everything else uses standard panels.
+- States use `is-*` classes; variants use modifier classes (see `components.md`).
+- Segoe UI, dense 12–13px content. Don't "modernize" spacing or sizes.
+- One HTML file + `hub.css`. No build step, no framework, no external JS or fonts.
 
-## When information is missing
+## When something is missing
 
-If a request depends on something not documented (a dialog, a rail flyout, a wizard step), build it from the closest documented building blocks, mark it as an assumption in the handoff, and ask the user for a screenshot. When they provide one, update `references/` and `hub.css`/templates so the skill learns it.
+Build it from the closest atoms and molecules, mark it as an assumption, and ask the user for a screenshot. When they provide one, add the component at the right atomic level in `hub.css`, `components.md` and `components.html`, with a neutral name.

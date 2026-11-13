@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Hub – Home</title>
+<title>Layout – menu cards</title>
 <link rel="stylesheet" href="hub.css">
 </head>
 <body>
-<!-- ICON SPRITE: copy as-is into every mockup. Use with <svg class="i"><use href="#i-name"/></svg> -->
+<!-- ICON SPRITE: keep in every page. Use <svg class="i"><use href="#i-name"/></svg> -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
@@ -56,79 +56,42 @@
 </svg>
 
 <div class="window">
-  <!-- TAB STRIP -->
+  <!-- SHELL: tab strip -->
   <div class="tabstrip">
-    <div class="tab home active"><svg class="i"><use href="#i-home"/></svg>CORE USA</div>
-    <div class="tab"><svg class="i"><use href="#i-search"/></svg>Event Reports</div>
-    <div class="titlebar-right">
-      <svg class="i rec"><use href="#i-rec"/></svg>
-      <svg class="i avatar"><use href="#i-user"/></svg>
-      <span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span>
-    </div>
+    <div class="tab home is-active"><svg class="i"><use href="#i-home"/></svg>CORE USA</div><div class="tab"><svg class="i"><use href="#i-search"/></svg><span class="t">Event Reports</span></div>
+    <div class="titlebar"><svg class="i rec"><use href="#i-rec"/></svg><svg class="i user"><use href="#i-user"/></svg><span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span></div>
   </div>
 
-  <!-- MAIN -->
-  <div class="main">
-    <div class="header-panel home">
-      <div class="search">
-        <span class="value">kitche</span>
-        <svg class="i"><use href="#i-x"/></svg>
-        <svg class="i"><use href="#i-filter"/></svg>
-      </div>
+  <!-- PAGE -->
+  <main class="page">
+    <div class="page-header has-quick-search">
+      <div class="quick-search"><span class="value">kitche</span><svg class="i"><use href="#i-x"/></svg><svg class="i"><use href="#i-filter"/></svg></div>
       <span class="hint">Ctrl+T</span>
     </div>
-
-    <div class="content-panel">
-      <svg class="i scroll-hint up"><use href="#i-chev-up"/></svg>
-      <svg class="i scroll-hint down"><use href="#i-chev-down"/></svg>
-      <div class="cards">
-        <section class="card">
-          <div class="card-header">Kitchen</div>
-          <div class="card-body">
-            <div class="card-item selected"><svg class="i"><use href="#i-report"/></svg>Kitchen Menu</div>
-          </div>
-        </section>
-        <section class="card">
-          <div class="card-header">Kitchen References</div>
-          <div class="card-body">
-            <div class="card-item"><svg class="i"><use href="#i-grid"/></svg>Kitchen Teams</div>
-            <div class="card-item"><svg class="i blank"><use href="#i-grid"/></svg>Kitchen Setup</div>
-            <div class="card-item"><svg class="i blank"><use href="#i-grid"/></svg>Kitchens</div>
-          </div>
-        </section>
-        <section class="card">
-          <div class="card-header">Sample Forms</div>
-          <div class="card-body">
-            <div class="card-item"><svg class="i"><use href="#i-bolt"/></svg>Kitchen Sink Multi-Step</div>
-            <div class="card-item"><svg class="i"><use href="#i-grid"/></svg>Kitchen Sinks</div>
-          </div>
-        </section>
-        <section class="card">
-          <div class="card-header">Event Management</div>
-          <div class="card-body ruled">
-            <div class="card-item"><svg class="i"><use href="#i-bolt"/></svg><span class="t">Volunteer Program Congregation Assignment</span></div>
-            <div class="card-item"><svg class="i blank"><use href="#i-bolt"/></svg><span class="t">Volunteer Program Selection</span></div>
-          </div>
-        </section>
+    <div class="page-body">
+      <svg class="i scroll-hint up"><use href="#i-chev-up"/></svg><svg class="i scroll-hint down"><use href="#i-chev-down"/></svg>
+      <div class="card-wrap">
+        <section class="menu-card"><div class="menu-card-header">Kitchen</div><div class="menu-card-body"><div class="menu-item is-selected"><svg class="i"><use href="#i-report"/></svg><span class="t">Kitchen Menu</span></div></div></section>
+        <section class="menu-card"><div class="menu-card-header">Kitchen References</div><div class="menu-card-body"><div class="menu-item"><svg class="i"><use href="#i-grid"/></svg><span class="t">Kitchen Teams</span></div><div class="menu-item"><svg class="i is-blank"><use href="#i-grid"/></svg><span class="t">Kitchen Setup</span></div><div class="menu-item"><svg class="i is-blank"><use href="#i-grid"/></svg><span class="t">Kitchens</span></div></div></section>
+        <section class="menu-card"><div class="menu-card-header">Sample Forms</div><div class="menu-card-body"><div class="menu-item"><svg class="i"><use href="#i-bolt"/></svg><span class="t">Kitchen Sink Multi-Step</span></div><div class="menu-item"><svg class="i"><use href="#i-grid"/></svg><span class="t">Kitchen Sinks</span></div></div></section>
+        <section class="menu-card"><div class="menu-card-header">Event Management</div><div class="menu-card-body"><div class="menu-item"><svg class="i"><use href="#i-bolt"/></svg><span class="t">Volunteer Program Congregation Assignment</span></div><div class="menu-item"><svg class="i is-blank"><use href="#i-grid"/></svg><span class="t">Volunteer Program Selection</span></div></div></section>
       </div>
     </div>
-  </div>
+  </main>
 
-  <!-- FOOTER ACTION BAR -->
-  <div class="footer">
-    <button class="btn outline"><svg class="i"><use href="#i-arrow-right"/></svg>Open</button>
-    <span class="spacer"></span>
-    <button class="btn primary"><svg class="i"><use href="#i-pencil"/></svg>Edit</button>
-  </div>
+  <!-- SHELL: action bar -->
+  <footer class="action-bar">
+    <button class="btn outline"><svg class="i"><use href="#i-arrow-right"/></svg><span>Open</span></button><span class="spacer"></span><button class="btn primary"><svg class="i"><use href="#i-pencil"/></svg><span>Edit</span></button>
+  </footer>
 
-  <!-- RIGHT RAIL (do not change) -->
+  <!-- SHELL: right rail (do not change) -->
   <nav class="rail">
-    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="count">1646</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="rail-count">1646</span></div>
     <div class="rail-item"><svg class="i"><use href="#i-wrench"/></svg></div>
     <div class="rail-item"><svg class="i"><use href="#i-alert"/></svg></div>
-    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="badge">9+</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="rail-badge">9+</span></div>
     <div class="rail-item"><svg class="i"><use href="#i-help"/></svg></div>
-    <div class="rail-item"><span class="ai">AI<small>BETA ✦</small></span></div>
+    <div class="rail-item"><span class="rail-ai">AI<small>BETA ✦</small></span></div>
     <div class="rail-item"><svg class="i"><use href="#i-inspect"/></svg></div>
     <div class="rail-logo"><svg class="i"><use href="#i-logo"/></svg></div>
   </nav>

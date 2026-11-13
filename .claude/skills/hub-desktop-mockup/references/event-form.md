@@ -1,31 +1,24 @@
-# Event Form (the team's main form)
+# Event module (the team's main area)
 
-The team mainly maintains the **Event** module. This file records its *structure* only — not data. Use made-up sample values in mockups.
+The team mainly maintains the **Event** module. This file records its *structure* only, not data. Use made-up sample values in mockups. Component names come from `components.md`; layouts from `layouts.md`.
 
 ## Flow
 
-1. Home → card item opens the **Events** tab = **Event Search** (`template-search-cards.html` / `template-search-grid.html`).
-2. Search with free text + criteria chips (default chip: `Canceled = No`). Results show in `All results (n)` (usually as grid) and `Recent (n)` (usually as cards).
-3. Opening a result adds a tab `CODE Name` with the **Event Form** (`template-record.html`).
+1. A grid menu item opens the **Events** tab: search layout (`layout-search-cards.html` / `layout-search-grid.html`). Default chip `Canceled = No`; collapsibles `All results (n)` (usually base data grid) and `Recent (n)` (usually info cards).
+2. Opening a result adds a tab `CODE Name` with the event record: collapsible-sections layout (`layout-collapsible-sections.html`).
+3. ⚡ menu items in the event menu card open action flows: filter-bar + sidebar layout (`layout-filter-sidebar.html`).
 
-## Event Form sections (in order)
+## Event record: collapsibles (in order)
 
-These appear both as jump links in the header and as collapsible section bars:
+Each also appears in the jump nav:
 
 General · Person resources · Key dates · Disaster surveys · Disaster statistics · Reports · Budget · Risk incident reports · Projects · Financial · Accommodations · Congregations and groups · Documents
 
-### General (shape)
-- Left column: **Main** (name, local name, type, series, host branch, geo location, city, start–end date, closed/canceled date, latitude–longitude), **Website details**.
-- Right column: smaller panels (intensity, venue/attendance numbers, codes, a committees grid).
-- Full width below: a cost summary grid with Excel export and a currency-view radio.
+- **General**: split halves. Left: panels *Main* (names, type, series, host branch, geo location, city, date ranges, latitude–longitude) and *Website details*. Right: smaller panels (intensity, venue/attendance numbers, codes, an embedded grid). Below, full width: a panel with an embedded grid, Excel export icon button and a currency option group.
+- **Disaster statistics**: split halves of panels titled `Condition of … as of <date>`, each made of **field groups** with right-aligned numeric inputs, some with a secondary value `n (n)`.
 
-### Disaster statistics (shape) — reference for dense numeric sections
-- Group panels titled `Condition of … as of <date>`, two columns with a splitter.
-- Each panel has **sub-groups** (bold sub-title, indented 3-column grid of right-aligned numeric fields).
-- Values may carry a secondary count: `1 (0)`.
+## Action bar
+Right side: `Drive` (disabled when there is no folder), `Google Earth`, `Show on map`, `Edit`.
 
-## Footer (Event Form)
-Right side: `Drive` (disabled when no folder), `Google Earth`, `Show on map`, `✎ Edit`.
-
-## Process forms related to events
-Launched from an **Event Management** card (⚡ items). Example shape: a selection process with criteria (event series, event, All/Yes/No filters), a week tile list + progress on the left, applicant grid on the right, `Select / Unselect / Remove final selection` and `⚡ Update` in the footer. See `template-process.html`.
+## Action flows
+Example: a selection flow. Chip bar + filter editor (event series and event lookups, `All / Yes / No` option groups); sidebar with a tile list (one tile per week) and a progress bar; main panel with grid toolbar and embedded compact grid. Outline `Open / Select / Unselect / Remove final selection`, primary `Update`.

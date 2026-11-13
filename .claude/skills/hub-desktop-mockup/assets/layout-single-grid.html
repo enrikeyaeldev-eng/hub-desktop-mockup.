@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Hub – Reference form</title>
+<title>Layout – single grid</title>
 <link rel="stylesheet" href="hub.css">
 </head>
 <body>
-<!-- ICON SPRITE: copy as-is into every mockup. Use with <svg class="i"><use href="#i-name"/></svg> -->
+<!-- ICON SPRITE: keep in every page. Use <svg class="i"><use href="#i-name"/></svg> -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
@@ -56,61 +56,33 @@
 </svg>
 
 <div class="window">
-  <!-- TAB STRIP -->
+  <!-- SHELL: tab strip -->
   <div class="tabstrip">
-    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div>
-    <div class="tab"><svg class="i"><use href="#i-search"/></svg>Event Reports</div>
-    <div class="tab"><svg class="i"><use href="#i-search"/></svg>Events</div>
-    <div class="tab active"><b style="font-weight:600">Allocation Statuses</b><span class="close">✕</span></div>
-    <div class="titlebar-right">
-      <svg class="i rec"><use href="#i-rec"/></svg>
-      <svg class="i avatar"><use href="#i-user"/></svg>
-      <span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span>
-    </div>
+    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div><div class="tab"><svg class="i"><use href="#i-search"/></svg><span class="t">Event Reports</span></div><div class="tab"><svg class="i"><use href="#i-search"/></svg><span class="t">Events</span></div><div class="tab is-active"><span class="t">Allocation Statuses</span><span class="close">✕</span></div>
+    <div class="titlebar"><svg class="i rec"><use href="#i-rec"/></svg><svg class="i user"><use href="#i-user"/></svg><span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span></div>
   </div>
 
-  <!-- MAIN -->
-  <div class="main">
-    <div class="header-panel">
-      <span class="form-title">Allocation Statuses</span>
-      <svg class="i share fill"><use href="#i-share"/></svg>
+  <!-- PAGE -->
+  <main class="page">
+    <div class="page-header"><span class="page-title">Allocation Statuses</span><span class="page-actions"><svg class="i fill"><use href="#i-share"/></svg></span></div>
+    <div class="page-body">
+<div class="sheet"><div class="filter-link"><svg class="i"><use href="#i-filter"/></svg>Filter</div><table class="data-grid embedded striped compact"><thead><tr><th><span class="checkbox"></span></th><th>Number<span class="dots">•••</span></th><th>Code</th><th>Description</th><th class="fill"></th></tr></thead><tbody><tr><td></td><td>1</td><td>Sub</td><td>Submitted</td><td class="fill"></td></tr><tr><td></td><td>2</td><td>Appr</td><td>Approved</td><td class="fill"></td></tr><tr><td></td><td>3</td><td>Rej</td><td>Not approved</td><td class="fill"></td></tr><tr><td></td><td>4</td><td>Can</td><td>Canceled</td><td class="fill"></td></tr><tr><td></td><td>5</td><td>Hold</td><td>On hold</td><td class="fill"></td></tr><tr><td></td><td>6</td><td>Rev</td><td>Under review</td><td class="fill"></td></tr><tr><td></td><td>7</td><td>Info</td><td>More information needed</td><td class="fill"></td></tr><tr><td></td><td>8</td><td>Wait</td><td>Waiting list</td><td class="fill"></td></tr></tbody></table><div class="grid-footer is-pinned">Records (8)</div></div>
     </div>
+  </main>
 
-    <div class="content-panel">
-      <div class="ref-sheet">
-        <div class="mini-filter"><svg class="i"><use href="#i-filter"/></svg>Filter</div>
-        <table class="mini ref">
-          <thead><tr><th><span class="check"></span></th><th class="menu" style="padding-left:10px">Number<span class="dots">•••</span></th><th>Code</th><th>Description</th><th class="fill"></th></tr></thead>
-          <tbody>
-            <tr><td></td><td>1</td><td>Sub</td><td>Submitted</td><td class="fill"></td></tr>
-            <tr><td></td><td>2</td><td>Appr</td><td>Approved</td><td class="fill"></td></tr>
-            <tr><td></td><td>3</td><td>Rej</td><td>Not approved</td><td class="fill"></td></tr>
-            <tr><td></td><td>4</td><td>Can</td><td>Canceled</td><td class="fill"></td></tr>
-            <tr><td></td><td>5</td><td>Hold</td><td>On hold</td><td class="fill"></td></tr>
-            <tr><td></td><td>6</td><td>Rev</td><td>Under review</td><td class="fill"></td></tr>
-            <tr><td></td><td>7</td><td>Info</td><td>More information needed</td><td class="fill"></td></tr>
-            <tr><td></td><td>8</td><td>Wait</td><td>Waiting list</td><td class="fill"></td></tr>
-          </tbody>
-        </table>
-        <div class="records">Records (8)</div>
-      </div>
-    </div>
-  </div>
+  <!-- SHELL: action bar -->
+  <footer class="action-bar">
+    <span class="spacer"></span><button class="btn primary"><svg class="i"><use href="#i-pencil"/></svg><span>Edit</span></button>
+  </footer>
 
-  <!-- FOOTER ACTION BAR -->
-  <div class="footer">
-    <span class="spacer"></span>
-    <button class="btn primary"><svg class="i"><use href="#i-pencil"/></svg>Edit</button>
-  </div>
-
-  <!-- RIGHT RAIL (do not change) -->
+  <!-- SHELL: right rail (do not change) -->
   <nav class="rail">
-    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="count">1646</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="rail-count">1646</span></div>
     <div class="rail-item"><svg class="i"><use href="#i-wrench"/></svg></div>
     <div class="rail-item"><svg class="i"><use href="#i-alert"/></svg></div>
-    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="badge">9+</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="rail-badge">9+</span></div>
     <div class="rail-item"><svg class="i"><use href="#i-help"/></svg></div>
-    <div class="rail-item"><span class="ai">AI<small>BETA ✦</small></span></div>
+    <div class="rail-item"><span class="rail-ai">AI<small>BETA ✦</small></span></div>
     <div class="rail-item"><svg class="i"><use href="#i-inspect"/></svg></div>
     <div class="rail-logo"><svg class="i"><use href="#i-logo"/></svg></div>
   </nav>

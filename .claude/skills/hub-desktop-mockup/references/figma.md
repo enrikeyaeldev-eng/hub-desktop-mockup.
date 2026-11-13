@@ -6,33 +6,23 @@ HTML is the source of truth; Figma is a copy for review and commenting. Always b
 
 Pick the first option that is available in the session:
 
-1. **Figma connector / MCP tools are available** (tools named `mcp__…figma…`): use them to create the file/frames directly, following the structure below. Check with ToolSearch for "figma" before assuming they are missing. If the server shows as failed to connect, tell the user so they can reconnect it — don't silently fall back.
-2. **No connector:** tell the user to import the rendered HTML with a Figma HTML-import plugin (e.g. *html.to.design*): publish or open the HTML at a URL (or upload the file), run the plugin, and import at 1920×1030. Then tidy the result using the structure below.
-3. As a last resort, provide the 1920×1030 PNG screenshot (2× scale) so it can be placed in Figma as a reference image.
+1. **Figma connector / MCP tools are available** (tools named `mcp__…figma…`): use them to create the file/frames directly, following the structure below. Check with ToolSearch for "figma" before assuming they are missing. If the server shows as failed to connect, tell the user so they can reconnect it. Don't silently fall back.
+2. **No connector:** tell the user to import the rendered HTML with a Figma HTML-import plugin (e.g. *html.to.design*): open the HTML at a URL (or upload the file), run the plugin, import at 1920×1030. Then tidy the result using the structure below.
+3. Last resort: provide the 1920×1030 PNG screenshot (2× scale) as a reference image.
 
-## File structure
+## File structure (mirrors the atomic levels)
 
-- Page per module (e.g. `Kitchen`), plus a `🧱 Components` page and a `🎨 Tokens` page.
-- One frame per screen/state, 1920×1030, named `<Form> / <Section> / <State>`, e.g. `Kitchen Setup / General / Edit – validation error`.
-- Frames placed left-to-right in flow order, 200px apart.
+- `🎨 Tokens`: variables collection `Hub` with exactly the names in `tokens.md` (without `--`), plus text styles.
+- `⚛ Atoms`, `🧬 Molecules`, `🧩 Organisms`: one component set per entry in `components.md`, named exactly like the CSS block (`Panel`, `Data grid`, `Stat equation`, …). Import `assets/components.html` first; it already lays them out in this order.
+- `🖥 Shell`: tab strip, rail, page header variants, action bar.
+- `📐 Layouts`: the example layouts, built only from instances.
+- One page per feature being designed, with frames 1920×1030 named `<Feature> / <Area> / <State>`, placed left-to-right in flow order, 200px apart.
 
-## Variables and styles
+## Component properties
 
-Create Figma **variables** with exactly the token names from `design-tokens.md` (drop the `--`: `primary`, `surface`, `canvas`, …) in a `Hub` collection. Text styles: `Title/20`, `Card header/16`, `Panel header/14`, `Body/13`, `Label/12`, `Label/12 required`.
-
-## Components
-
-Build once on the Components page, then use instances. Import `assets/template-components.html` first; it holds every control and state on one page.
-
-- `Shell` (tab strip + rail + footer) with a slot for the content and variant props for the footer buttons.
-- `Tab` — variants: `home`, `inactive`, `active`, with `closable` boolean.
-- `Card` (home launcher), `Card item` — variants by icon: `grid`, `report`, `wizard`, `none`; `selected` boolean.
-- `Group panel` — variant `primary` / `secondary`.
-- `Field` — variants: `text`, `dropdown`, `lookup`, `date range`, `checkbox`, `radio`, `option list`, `checkbox tree`; booleans `required`, `invalid`, `read mode`, `focused`.
-- `Lookup popup`, `Error tip`, `Tooltip`, `Criteria bar` (empty / with chips), `Chip`, `Pill tabs`.
-- `Section bar` — `collapsed` / `open`; `Splitter`.
-- `Result card`, `Data grid` (header, row: default / selected / focused), `Mini grid`, `Tile`, `Progress`.
-- Overview blocks: `Avatar`, `Tag`, `KPI tile`, `Formula tile` (`boxed` / `plain`, `status`: none / ok / bad), `Operator`, `Contact card`.
-- `Button` — `primary` / `outline`, with icon swap.
+Map CSS to Figma properties the same way everywhere:
+- Variant classes → **variant** properties (`Panel header: default | accent`, `Button: primary | outline`, `Data grid: base | embedded | striped`).
+- `is-*` states → **boolean or state** properties (`checked`, `selected`, `open`, `readonly`, `focused`, `invalid`, `disabled`).
+- Icons → **instance swap**; labels and values → **text** properties.
 
 Use auto layout everywhere so content changes don't break spacing.

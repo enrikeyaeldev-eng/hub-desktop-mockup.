@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Layout – search with cards</title>
+<link rel="stylesheet" href="hub.css">
+</head>
+<body>
+<!-- ICON SPRITE: keep in every page. Use <svg class="i"><use href="#i-name"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 9.5V21h14V9.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 4h18l-7 9v7l-4-2v-5z"/></symbol>
+  <symbol id="i-rec" viewBox="0 0 24 24"><rect x="3" y="5" width="12" height="14" fill="currentColor" stroke="none"/><path d="M18 7v10M21 9v6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14.5"/><circle cx="16" cy="12.5" r="5"/><path d="M6.5 26.5c2-4.5 5.5-6.5 9.5-6.5s7.5 2 9.5 6.5"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5"/><path d="M11 5.5h10"/><rect x="3" y="10" width="5" height="5"/><path d="M11 12.5h10"/><path d="M3 19.5h5M11 19.5h10"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0 5.8 5.2L9 23l-3-3L17.3 8.7"/><path d="M14.5 6.5 17 4a4.5 4.5 0 0 1 3.5 1.5L18 8"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20z"/><path d="M12 10v5M12 18v.5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4h12l-2 4 2 4H7v5"/><path d="M4 17h3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 1-1 1.7v1M12 17v.5"/></symbol>
+  <symbol id="i-inspect" viewBox="0 0 24 24"><path d="M13 19H3V5h18v6"/><circle cx="17" cy="16" r="3"/><path d="m19.2 18.2 2.3 2.3"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 52 44"><path d="M7 4H3v36h4M45 4h4v36h-4"/><path d="M11 22h4M15 16v12M19 19v6M23 12v20M27 18v8M31 20v4M35 8v28M39 22h2"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4l7 7-7 7v-4c-5 0-8 1.5-11 5 1-6 4-10 11-10.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M3 12h17M14 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M21 12H4M10 6l-6 6 6 6"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z" fill="currentColor"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M4 4h13l3 3v13H4z"/><path d="M8 4v5h8V4M8 20v-6h8v6"/></symbol>
+  <symbol id="i-preview" viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M3 20h5"/><circle cx="15" cy="15" r="4"/><path d="m18 18 3 3"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="2" y="9" width="20" height="9" rx="1" fill="currentColor"/><rect x="6" y="14" width="12" height="7" fill="var(--primary)"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16"/><path d="M2 9h20M2 14.5h20M9 4v16"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M3 5h9M3 10h6M3 15h4"/><circle cx="14" cy="14" r="5"/><path d="m18 18 4 4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M14 2 7 14h5l-2 8 7-12h-5z" fill="currentColor"/></symbol>
+  <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+  <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M14 3l7 7-2 1-3 3 1 4-2 2-4-4-5 5M9 15l-4-4 2-2 4 1 3-3 1-2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="i-magnify" viewBox="0 0 24 24"><circle cx="14" cy="10" r="6"/><path d="M10 14l-7 7"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-tiles" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-export" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M12 4v16M12 9h9M12 14h9"/><path d="m5 9 4 6M9 9l-4 6"/></symbol>
+  <symbol id="i-earth" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11v6"/><path d="M4 21l2-5h12l2 5z"/></symbol>
+  <symbol id="i-drive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 4v5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M3 23c0-5 4-8.5 9-8.5s9 3.5 9 8.5z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><path d="m3 6 9 7 9-7"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="3" width="12" height="14" rx="1"/><path d="M5 7v14h11"/></symbol>
+  <symbol id="i-face-sad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 16.5c2.5-2.5 5.5-2.5 8 0"/></symbol>
+  <symbol id="i-face-neutral" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8.5 15h7"/></symbol>
+  <symbol id="i-face-happy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v.5M15 9.5v.5M8 14c2.5 2.5 5.5 2.5 8 0"/></symbol>
+</svg>
+
+<div class="window">
+  <!-- SHELL: tab strip -->
+  <div class="tabstrip">
+    <div class="tab home"><svg class="i"><use href="#i-home"/></svg>CORE USA</div><div class="tab"><svg class="i"><use href="#i-search"/></svg><span class="t">Event Reports</span></div><div class="tab is-active"><svg class="i"><use href="#i-search"/></svg><span class="t">Events</span><span class="close">✕</span></div>
+    <div class="titlebar"><svg class="i rec"><use href="#i-rec"/></svg><svg class="i user"><use href="#i-user"/></svg><span class="winctl">–</span><span class="winctl">▢</span><span class="winctl">✕</span></div>
+  </div>
+
+  <!-- PAGE -->
+  <main class="page">
+    <div class="page-header has-search">
+      <div class="search-input"><span class="value is-placeholder">Search events</span><svg class="i adorn"><use href="#i-x"/></svg><svg class="i adorn"><use href="#i-info"/></svg><span class="btn-square wide"><svg class="i"><use href="#i-magnify"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-x"/></svg></span><span class="btn-square"><svg class="i"><use href="#i-dots"/></svg></span></div>
+      <div class="chip-bar"><span class="chip-bar-toggle"><svg class="i"><use href="#i-chev-right"/></svg></span><span class="chip">Canceled<span class="chip-value has-caret">No</span><span class="chip-remove"><svg class="i"><use href="#i-x"/></svg></span></span></div>
+      <span class="page-actions"><svg class="i fill"><use href="#i-share"/></svg></span>
+    </div>
+    <div class="page-body stack">
+<div class="stack"><section class="collapsible">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>No results</div>
+  
+</section><section class="collapsible is-open">
+  <div class="collapsible-bar"><svg class="i chev"><use href="#i-chev-down"/></svg>Recent (15)<span class="collapsible-tools"><span class="view-toggle"><svg class="i"><use href="#i-list"/></svg><svg class="i is-active"><use href="#i-tiles"/></svg></span></span></div>
+  <div class="collapsible-body flush"><div class="card-grid"><article class="info-card">
+  <div class="info-card-header"><span class="t">EVT-1042 Warehouse Fire - Springfield, Illinois</span></div>
+  <div class="info-card-body"><div class="kv-pairs"><div class="kv-pair"><span>Number</span><span>1042</span></div><div class="kv-pair"><span>Host branch</span><span>(USA) United States</span></div><div class="kv-pair span-2"><span>Type</span><span>Accident</span></div><div class="kv-pair span-2"><span>Name</span><span>Warehouse Fire - Springfield, Illinois</span></div><div class="kv-pair span-2"><span>Local name</span><span>Warehouse Fire - Springfield, Illinois</span></div><div class="kv-pair"><span>Start date</span><span>3/2/2025</span></div><div class="kv-pair"><span>End date</span><span>3/20/2025</span></div></div></div>
+</article><article class="info-card is-selected">
+  <div class="info-card-header"><span class="t">EVT-1037 Hurricane Response - Gulf Coast</span><span class="checkbox"></span></div>
+  <div class="info-card-body"><div class="kv-pairs"><div class="kv-pair"><span>Number</span><span>1037</span></div><div class="kv-pair"><span>Host branch</span><span>(USA) United States</span></div><div class="kv-pair span-2"><span>Type</span><span>Tropical Cyclone</span></div><div class="kv-pair span-2"><span>Name</span><span>Hurricane Response - Gulf Coast</span></div><div class="kv-pair span-2"><span>Local name</span><span>Hurricane Response - Gulf Coast</span></div><div class="kv-pair"><span>Start date</span><span>9/12/2024</span></div><div class="kv-pair"><span>End date</span><span>1/30/2025</span></div></div></div>
+</article><article class="info-card">
+  <div class="info-card-header"><span class="t">EVT-1051 1200 Oak Ave, Denver, CO (Location D-204)</span></div>
+  <div class="info-card-body"><div class="kv-pairs"><div class="kv-pair"><span>Number</span><span>1051</span></div><div class="kv-pair"><span>Host branch</span><span>(USA) United States</span></div><div class="kv-pair span-2"><span>Type</span><span>Facility</span></div><div class="kv-pair span-2"><span>Name</span><span>1200 Oak Ave, Denver, CO (Location D-204)</span></div><div class="kv-pair span-2"><span>Local name</span><span>1200 Oak Ave, Denver, CO (Location D-204)</span></div><div class="kv-pair"><span>Start date</span><span>6/1/2025</span></div><div class="kv-pair"><span>End date</span><span></span></div></div></div>
+</article><article class="info-card">
+  <div class="info-card-header"><span class="t">EVT-0988 Regional Outreach Campaign - Pacific</span></div>
+  <div class="info-card-body"><div class="kv-pairs"><div class="kv-pair"><span>Number</span><span>988</span></div><div class="kv-pair"><span>Host branch</span><span>(USA) United States</span></div><div class="kv-pair span-2"><span>Type</span><span>Campaign</span></div><div class="kv-pair span-2"><span>Name</span><span>Regional Outreach Campaign - Pacific</span></div><div class="kv-pair span-2"><span>Local name</span><span>Regional Outreach Campaign - Pacific</span></div><div class="kv-pair"><span>Start date</span><span>4/5/2026</span></div><div class="kv-pair"><span>End date</span><span>5/16/2026</span></div></div></div>
+</article><article class="info-card">
+  <div class="info-card-header"><span class="t">EVT-0991 Coastal Outreach Campaign - Atlantic Provinces</span></div>
+  <div class="info-card-body"><div class="kv-pairs"><div class="kv-pair"><span>Number</span><span>991</span></div><div class="kv-pair"><span>Host branch</span><span>(CAN) Canada</span></div><div class="kv-pair span-2"><span>Type</span><span>Campaign</span></div><div class="kv-pair span-2"><span>Name</span><span>Coastal Outreach Campaign - Atlantic Provinces</span></div><div class="kv-pair span-2"><span>Local name</span><span>Coastal Outreach Campaign - Atlantic Provinces</span></div><div class="kv-pair"><span>Start date</span><span>5/3/2026</span></div><div class="kv-pair"><span>End date</span><span>5/9/2026</span></div></div></div>
+</article><article class="info-card">
+  <div class="info-card-header"><span class="t">EVT-1003 2026 Regional Convention - Monterrey</span></div>
+  <div class="info-card-body"><div class="kv-pairs"><div class="kv-pair"><span>Number</span><span>1003</span></div><div class="kv-pair"><span>Host branch</span><span>(MEX) Mexico</span></div><div class="kv-pair span-2"><span>Type</span><span>Convention</span></div><div class="kv-pair span-2"><span>Name</span><span>2026 Regional Convention - Monterrey</span></div><div class="kv-pair span-2"><span>Local name</span><span>2026 Regional Convention - Monterrey</span></div><div class="kv-pair"><span>Start date</span><span>7/10/2026</span></div><div class="kv-pair"><span>End date</span><span>7/12/2026</span></div></div></div>
+</article></div></div>
+</section></div>
+    </div>
+  </main>
+
+  <!-- SHELL: action bar -->
+  <footer class="action-bar">
+    <button class="btn outline"><svg class="i"><use href="#i-arrow-right"/></svg><span>Open</span></button><button class="btn outline"><svg class="i"><use href="#i-export"/></svg><span>Export</span></button><button class="btn outline"><svg class="i"><use href="#i-earth"/></svg><span>Google Earth</span></button><button class="btn outline"><svg class="i"><use href="#i-earth"/></svg><span>Show on map</span></button><button class="btn outline"><svg class="i"><use href="#i-x"/></svg><span>Clear</span></button><span class="spacer"></span><button class="btn primary"><svg class="i"><use href="#i-plus"/></svg><span>New</span></button>
+  </footer>
+
+  <!-- SHELL: right rail (do not change) -->
+  <nav class="rail">
+    <div class="rail-item"><svg class="i"><use href="#i-tasks"/></svg><span class="rail-count">1646</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-wrench"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-alert"/></svg></div>
+    <div class="rail-item"><svg class="i"><use href="#i-flag"/></svg><span class="rail-badge">9+</span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-help"/></svg></div>
+    <div class="rail-item"><span class="rail-ai">AI<small>BETA ✦</small></span></div>
+    <div class="rail-item"><svg class="i"><use href="#i-inspect"/></svg></div>
+    <div class="rail-logo"><svg class="i"><use href="#i-logo"/></svg></div>
+  </nav>
+</div>
+</body>
+</html>
